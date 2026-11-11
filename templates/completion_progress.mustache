@@ -43,6 +43,7 @@
                 "completed": false,
                 "notcompleted": false,
                 "futurenotcompleted": false,
+                "unavailable": false,
                 "activitylink": "https://url/",
                 "activityicon": "https://url/",
                 "activityname": "Text",
@@ -52,7 +53,9 @@
                 "infopassed": false,
                 "infofailed": false,
                 "infoincomplete": false,
-                "infosubmitted": false
+                "infosubmitted": false,
+                "infounavailable": false,
+                "availabilityinfo": ""
             }
         ],
         "progresspercentage": "0%"
@@ -80,7 +83,8 @@
                                 {{#submittednotcomplete}}submittedNotComplete{{/submittednotcomplete}}
                                 {{#completed}}completed{{/completed}}
                                 {{#notcompleted}}notCompleted{{/notcompleted}}
-                                {{#futurenotcompleted}}futureNotCompleted{{/futurenotcompleted}}"
+                                {{#futurenotcompleted}}futureNotCompleted{{/futurenotcompleted}}
+                                {{#unavailable}}unavailable{{/unavailable}}"
                         data-inforef="{{instanceid}}-{{userid}}-{{activityid}}"
                         data-haslink="{{haslink}}">
                         {{#firstnow}}
@@ -147,6 +151,12 @@
                 {{/infoincomplete}}
                 {{#pix}} {{infoicon}}, block_completion_progress {{/pix}}
                 <br>
+                {{#infounavailable}}
+                    <div class="unavailableInfo">
+                        {{#str}} unavailable, block_completion_progress {{/str}}
+                        {{#availabilityinfo}}<div class="availabilityinfo">{{{availabilityinfo}}}</div>{{/availabilityinfo}}
+                    </div>
+                {{/infounavailable}}
                 {{#activityexpected}}
                     <div class="expectedBy">
                         {{#str}} time_expected, block_completion_progress {{/str}}:

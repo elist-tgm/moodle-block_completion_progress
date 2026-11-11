@@ -39,6 +39,7 @@ $colours = [
     'submittedNotComplete' => 'submittednotcomplete_colour',
     'notCompleted' => 'notCompleted_colour',
     'futureNotCompleted' => 'futureNotCompleted_colour',
+    'unavailable' => 'unavailable_colour',
 ];
 foreach ($colours as $classname => $stringkey) {
     $colour = get_config('block_completion_progress', $stringkey) ?:

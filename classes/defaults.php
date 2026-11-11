@@ -88,4 +88,14 @@ abstract class defaults {
      * Default number of seconds to cache completion percentages for overview pages.
      */
     const OVERVIEWCACHETIME = 3600;
+
+    /**
+     * Default handling of (not yet) accessible activities: hide or grey.
+     */
+    const SHOWUNAVAILABLE = 'grey';
+
+    /**
+     * Default for skipping activities restricted to groups/groupings the user is not in.
+     */
+    const UNAVAILABLESKIPGROUPS = 1;
 }

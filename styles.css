@@ -56,6 +56,12 @@
 .block_completion_progress .progressBarCell[data-haslink=not-allowed] {
     cursor: not-allowed;
 }
+.block_completion_progress .progressBarCell.unavailable {
+    background-image: repeating-linear-gradient(-45deg, transparent 0, transparent 4px, rgba(255, 255, 255, 0.35) 4px, rgba(255, 255, 255, 0.35) 8px);
+}
+.block_completion_progress .progressEventInfo .unavailableInfo {
+    font-style: italic;
+}
 
 .block_completion_progress .barModeScroll .barRowCells {
     white-space: nowrap;

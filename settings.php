@@ -107,6 +107,16 @@ if ($ADMIN->fulltree) {
     $coloursetting->set_updatedcallback('block_completion_progress\helpers::increment_cache_value');
     $settings->add($coloursetting);
 
+    $coloursetting = new admin_setting_configcolourpicker(
+        'block_completion_progress/unavailable_colour',
+        get_string('unavailable_colour_title', 'block_completion_progress'),
+        get_string('unavailable_colour_descr', 'block_completion_progress'),
+        get_string('unavailable_colour', 'block_completion_progress'),
+        null
+    );
+    $coloursetting->set_updatedcallback('block_completion_progress\helpers::increment_cache_value');
+    $settings->add($coloursetting);
+
     $settings->add(
         new admin_setting_configcheckbox(
             'block_completion_progress/showinactive',

@@ -50,6 +50,16 @@ class completion_progress implements \renderable, \templatable {
     const ORDERBY_TIME = 'orderbytime';
 
     /**
+     * Hide activities that are restricted and hidden entirely (original behaviour).
+     */
+    const UNAVAILABLE_HIDE = 'hide';
+
+    /**
+     * Show all (not yet) accessible activities as grey cells.
+     */
+    const UNAVAILABLE_GREY = 'grey';
+
+    /**
      * The course.
      * @var object
      */
@@ -550,6 +560,10 @@ class completion_progress implements \renderable, \templatable {
 
     /**
      * Filter down the activities to those a user can see.
+     *
+     * Depending on the block setting 'showunavailable', activities that exist but are
+     * (not yet) accessible for the user because of unmet access restrictions are kept
+     * and marked as unavailable, so all students see bars of comparable length.
      */
     protected function filter_visible_activities() {
         if (!$this->user || $this->activities === null) {
@@ -558,19 +572,48 @@ class completion_progress implements \renderable, \templatable {
 
         $this->visibleactivities = [];
         $modinfo = get_fast_modinfo($this->course, $this->user->id);
+        $greymode = $this->is_unavailable_grey_mode();
+        $skipgroups = !empty($this->blockconfig->unavailableskipgroups ?? defaults::UNAVAILABLESKIPGROUPS);
 
         // Keep only activities that are visible.
         foreach ($this->activities as $key => $activity) {
             $cm = $modinfo->cms[$activity->id];
             $section = $cm->get_section_info();
+            $activity->availableinfo = '';
 
             if (!$section->uservisible) {
-                continue;
-            } else if (!$cm->uservisible) {
-                if (!!$cm->availableinfo) {
-                    $activity->available = false;
-                } else {
+                // Section hidden from the user. Keep it only if it is restricted (not hidden by the teacher).
+                if (!$greymode || !$section->visible || $section->available || !$cm->visible) {
                     continue;
+                }
+                if ($skipgroups && $this->fails_group_restriction($section->availability,
+                        new \core_availability\info_section($section))) {
+                    continue;
+                }
+                if ($skipgroups && $this->fails_group_restriction($cm->availability,
+                        new \core_availability\info_module($cm))) {
+                    continue;
+                }
+                $activity->available = false;
+                if (!empty($section->availableinfo)) {
+                    $activity->availableinfo = \core_availability\info::format_info($section->availableinfo, $this->course);
+                }
+            } else if (!$cm->uservisible) {
+                if (!$cm->visible) {
+                    // Hidden by the teacher.
+                    continue;
+                }
+                if (!$cm->availableinfo && !($greymode && !$cm->available)) {
+                    // Restricted and hidden entirely, original behaviour.
+                    continue;
+                }
+                if ($greymode && $skipgroups && $this->fails_group_restriction($cm->availability,
+                        new \core_availability\info_module($cm))) {
+                    continue;
+                }
+                $activity->available = false;
+                if (!empty($cm->availableinfo)) {
+                    $activity->availableinfo = \core_availability\info::format_info($cm->availableinfo, $this->course);
                 }
             } else {
                 $activity->available = true;
@@ -584,6 +627,69 @@ class completion_progress implements \renderable, \templatable {
             // Save the visible activity.
             $this->visibleactivities[$key] = $activity;
         }
+    }
+
+    /**
+     * Whether unavailable activities are shown as grey cells.
+     * @return bool
+     */
+    protected function is_unavailable_grey_mode(): bool {
+        return ($this->blockconfig->showunavailable ?? defaults::SHOWUNAVAILABLE) === self::UNAVAILABLE_GREY;
+    }
+
+    /**
+     * Check whether an availability tree contains a group or grouping condition
+     * that the user does not meet and that is mandatory (joined by AND).
+     *
+     * Such activities are meant for other groups, so they are not counted as
+     * outstanding work for this user.
+     *
+     * @param string|null $availability JSON availability structure
+     * @param \core_availability\info $info
+     * @return bool
+     */
+    protected function fails_group_restriction(?string $availability, \core_availability\info $info): bool {
+        if (empty($availability)) {
+            return false;
+        }
+        $structure = json_decode($availability);
+        return $structure ? $this->fails_group_restriction_node($structure, $info) : false;
+    }
+
+    /**
+     * Recursive helper for fails_group_restriction().
+     * @param \stdClass $node
+     * @param \core_availability\info $info
+     * @return bool
+     */
+    private function fails_group_restriction_node(\stdClass $node, \core_availability\info $info): bool {
+        if (($node->op ?? '') !== '&' || empty($node->c) || !is_array($node->c)) {
+            return false;
+        }
+        foreach ($node->c as $child) {
+            if (isset($child->c)) {
+                if ($this->fails_group_restriction_node($child, $info)) {
+                    return true;
+                }
+                continue;
+            }
+            if (!isset($child->type) || !in_array($child->type, ['group', 'grouping'])) {
+                continue;
+            }
+            $classname = '\\availability_' . $child->type . '\\condition';
+            if (!class_exists($classname)) {
+                continue;
+            }
+            try {
+                $condition = new $classname($child);
+            } catch (\Throwable $e) {
+                continue;
+            }
+            if (!$condition->is_available(false, $info, true, $this->user->id)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -854,6 +960,7 @@ class completion_progress implements \renderable, \templatable {
         $instance = $this->get_block_instance()->id;
         $simple = $this->is_simple_bar();
         $numactivities = count($activities);
+        $greymode = $this->is_unavailable_grey_mode();
 
         // Get relevant block instance settings or use defaults.
         $useicons = get_config('block_completion_progress', 'forceiconsinbar') ?:
@@ -958,8 +1065,11 @@ class completion_progress implements \renderable, \templatable {
                 $cell->submittednotcomplete = true;
             } else if ($complete == COMPLETION_COMPLETE || $complete == COMPLETION_COMPLETE_PASS) {
                 $cell->completed = true;
+            } else if ($complete == COMPLETION_COMPLETE_FAIL) {
+                $cell->notcompleted = true;
+            } else if ($greymode && empty($activity->available)) {
+                $cell->unavailable = true;
             } else if (
-                $complete == COMPLETION_COMPLETE_FAIL ||
                 (!isset($config->orderby) || $config->orderby == 'orderbytime') &&
                 (isset($activity->expected) && $activity->expected > 0 && $activity->expected < $now)
             ) {
@@ -1009,6 +1119,12 @@ class completion_progress implements \renderable, \templatable {
             } else {
                 $cell->infoincomplete = true;
                 $cell->infoicon = 'cross';
+            }
+            if ($greymode && empty($activity->available)) {
+                $cell->infounavailable = true;
+                if (!empty($activity->availableinfo)) {
+                    $cell->availabilityinfo = $activity->availableinfo;
+                }
             }
             if ($activity->expected != 0) {
                 $cell->activityexpected = $activity->expected;

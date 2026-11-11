@@ -99,6 +99,25 @@ class block_completion_progress_edit_form extends block_edit_form {
         $mform->setDefault('config_longbars', $defaultlongbars);
         $mform->addHelpButton('config_longbars', 'how_longbars_works', 'block_completion_progress');
 
+        // Control how (not yet) accessible activities are presented.
+        $options = [
+            \block_completion_progress\completion_progress::UNAVAILABLE_GREY =>
+                get_string('config_unavailable_grey', 'block_completion_progress'),
+            \block_completion_progress\completion_progress::UNAVAILABLE_HIDE =>
+                get_string('config_unavailable_hide', 'block_completion_progress'),
+        ];
+        $mform->addElement('select', 'config_showunavailable',
+            get_string('config_showunavailable', 'block_completion_progress'), $options);
+        $mform->setDefault('config_showunavailable', defaults::SHOWUNAVAILABLE);
+        $mform->addHelpButton('config_showunavailable', 'config_showunavailable', 'block_completion_progress');
+
+        $mform->addElement('selectyesno', 'config_unavailableskipgroups',
+            get_string('config_unavailableskipgroups', 'block_completion_progress'));
+        $mform->setDefault('config_unavailableskipgroups', defaults::UNAVAILABLESKIPGROUPS);
+        $mform->addHelpButton('config_unavailableskipgroups', 'config_unavailableskipgroups', 'block_completion_progress');
+        $mform->hideIf('config_unavailableskipgroups', 'config_showunavailable', 'neq',
+            \block_completion_progress\completion_progress::UNAVAILABLE_GREY);
+
         // Allow icons to be turned on/off on the block.
         if (get_config('block_completion_progress', 'forceiconsinbar') !== "1") {
             $mform->addElement(
