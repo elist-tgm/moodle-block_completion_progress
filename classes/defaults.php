@@ -113,4 +113,9 @@ abstract class defaults {
      * Default display of the task type legend below the bar.
      */
     const SHOWTASKTYPELEGEND = 1;
+
+    /**
+     * Default position of task type icons when grouped by task type: cell, header or both.
+     */
+    const TASKTYPEICONPOS = 'header';
 }

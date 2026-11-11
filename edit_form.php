@@ -67,6 +67,10 @@ class block_completion_progress_tgm_edit_form extends block_edit_form {
                 'config_orderby_course_order',
                 'block_completion_progress_tgm'
             ),
+            completion_progress::ORDERBY_TASKTYPE => get_string(
+                'config_orderby_tasktype',
+                'block_completion_progress_tgm'
+            ),
         ];
         $label = get_string('config_orderby', 'block_completion_progress_tgm');
         $mform->addElement('select', 'config_orderby', $label, $options);
@@ -128,6 +132,16 @@ class block_completion_progress_tgm_edit_form extends block_edit_form {
             get_string('config_showtasktypelegend', 'block_completion_progress_tgm'));
         $mform->setDefault('config_showtasktypelegend', defaults::SHOWTASKTYPELEGEND);
         $mform->hideIf('config_showtasktypelegend', 'config_showtasktypes', 'eq', 0);
+
+        $options = [
+            completion_progress::TYPEICON_HEADER => get_string('config_tasktypeiconpos_header', 'block_completion_progress_tgm'),
+            completion_progress::TYPEICON_CELL => get_string('config_tasktypeiconpos_cell', 'block_completion_progress_tgm'),
+            completion_progress::TYPEICON_BOTH => get_string('config_tasktypeiconpos_both', 'block_completion_progress_tgm'),
+        ];
+        $mform->addElement('select', 'config_tasktypeiconpos',
+            get_string('config_tasktypeiconpos', 'block_completion_progress_tgm'), $options);
+        $mform->setDefault('config_tasktypeiconpos', defaults::TASKTYPEICONPOS);
+        $mform->hideIf('config_tasktypeiconpos', 'config_orderby', 'neq', completion_progress::ORDERBY_TASKTYPE);
 
         // Allow icons to be turned on/off on the block.
         if (get_config('block_completion_progress_tgm', 'forceiconsinbar') !== "1") {

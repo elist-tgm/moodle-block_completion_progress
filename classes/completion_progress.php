@@ -50,6 +50,26 @@ class completion_progress implements \renderable, \templatable {
     const ORDERBY_TIME = 'orderbytime';
 
     /**
+     * Group activities by task type, course order within a group.
+     */
+    const ORDERBY_TASKTYPE = 'orderbytasktype';
+
+    /**
+     * Task type icon position in grouped mode: in each cell.
+     */
+    const TYPEICON_CELL = 'cell';
+
+    /**
+     * Task type icon position in grouped mode: as group header.
+     */
+    const TYPEICON_HEADER = 'header';
+
+    /**
+     * Task type icon position in grouped mode: header and cells.
+     */
+    const TYPEICON_BOTH = 'both';
+
+    /**
      * Hide activities that are restricted and hidden entirely (original behaviour).
      */
     const UNAVAILABLE_HIDE = 'hide';
@@ -501,6 +521,23 @@ class completion_progress implements \renderable, \templatable {
 
 
     /**
+     * Used to compare two activity entries by task type (definition order, untyped last),
+     * then by order on the course page.
+     *
+     * @param object $a
+     * @param object $b
+     * @return integer
+     */
+    private function sorter_orderbytasktype($a, $b): int {
+        $ta = isset($a->tasktype) ? $a->tasktype->order : PHP_INT_MAX;
+        $tb = isset($b->tasktype) ? $b->tasktype->order : PHP_INT_MAX;
+        if ($ta != $tb) {
+            return $ta <=> $tb;
+        }
+        return $this->sorter_orderbycourse($a, $b);
+    }
+
+    /**
      * Loads activities with completion set in current course.
      *
      * @param boolean $selectedonly Whether to filter by configured selected items.
@@ -627,6 +664,64 @@ class completion_progress implements \renderable, \templatable {
 
             // Save the visible activity.
             $this->visibleactivities[$key] = $activity;
+        }
+    }
+
+    /**
+     * Split the cells into task type groups for the template.
+     *
+     * Activities are already sorted by task type (see sorter_orderbytasktype()),
+     * so consecutive cells with the same type form one group.
+     *
+     * @param stdClass $data Template data, cells already built (same order as $activities)
+     * @param array $activities
+     * @param string $iconpos
+     * @param bool $simple
+     */
+    protected function build_groups(stdClass $data, array $activities, string $iconpos, bool $simple): void {
+        $groups = [];
+        $current = null;
+        foreach (array_values($activities) as $i => $activity) {
+            $key = isset($activity->tasktype) ? $activity->tasktype->order : 'other';
+            if ($current === null || $current->key !== $key) {
+                $current = (object)[
+                    'key' => $key,
+                    'label' => isset($activity->tasktype) ? $activity->tasktype->label :
+                        get_string('tasktype_other', 'block_completion_progress_tgm'),
+                    'icon' => isset($activity->tasktype) ? $activity->tasktype->icon : '',
+                    'cells' => [],
+                ];
+                $groups[] = $current;
+            }
+            $current->cells[] = $data->cells[$i];
+        }
+
+        $showheader = !$simple && $iconpos !== self::TYPEICON_CELL;
+        $cellsperrow = (int)($data->cellsperrow ?? 0);
+        $data->grouped = true;
+        $data->groups = [];
+        foreach ($groups as $group) {
+            $count = count($group->cells);
+            if (!empty($data->barwrap) && $cellsperrow > 0) {
+                $perrow = min($count, $cellsperrow);
+                $groupstyle = 'flex: 0 0 calc(' . $perrow . ' * (100% - ' . ($cellsperrow - 1) . ' * var(--cpt-groupgap)) / ' .
+                    $cellsperrow . ' + ' . ($perrow - 1) . ' * var(--cpt-groupgap));';
+                $cellsstyle = 'flex-basis: calc(100% / ' . $perrow . ');';
+            } else if (!empty($data->barscroll)) {
+                $groupstyle = 'flex: 0 0 auto;';
+                $cellsstyle = '';
+            } else {
+                $groupstyle = 'flex: ' . $count . ' 1 0;';
+                $cellsstyle = '';
+            }
+            $data->groups[] = [
+                'label' => $group->label,
+                'icon' => $group->icon,
+                'showheader' => $showheader,
+                'groupstyle' => $groupstyle,
+                'cellsstyle' => $cellsstyle,
+                'cells' => $group->cells,
+            ];
         }
     }
 
@@ -965,6 +1060,9 @@ class completion_progress implements \renderable, \templatable {
         $showtypes = !empty($config->showtasktypes ?? defaults::SHOWTASKTYPES);
         $showlegend = $showtypes && !$simple && !empty($config->showtasktypelegend ?? defaults::SHOWTASKTYPELEGEND);
         $legend = [];
+        $grouped = (($config->orderby ?? defaults::ORDERBY) === self::ORDERBY_TASKTYPE);
+        $iconpos = $grouped ? ($config->tasktypeiconpos ?? defaults::TASKTYPEICONPOS) : self::TYPEICON_CELL;
+        $iconsincells = $iconpos !== self::TYPEICON_HEADER;
 
         // Get relevant block instance settings or use defaults.
         $useicons = get_config('block_completion_progress_tgm', 'forceiconsinbar') ?:
@@ -1125,9 +1223,11 @@ class completion_progress implements \renderable, \templatable {
                 $cell->infoicon = 'cross';
             }
             if ($showtypes && !empty($activity->tasktype)) {
-                $cell->hastype = true;
-                $cell->typeicon = $activity->tasktype->icon;
                 $cell->typelabel = $activity->tasktype->label;
+                if ($iconsincells) {
+                    $cell->hastype = true;
+                    $cell->typeicon = $activity->tasktype->icon;
+                }
                 $legend[$activity->tasktype->order] = $activity->tasktype;
             }
             if ($greymode && empty($activity->available)) {
@@ -1143,6 +1243,10 @@ class completion_progress implements \renderable, \templatable {
             $data->cells[] = $cell;
 
             $counter++;
+        }
+
+        if ($grouped) {
+            $this->build_groups($data, $activities, $iconpos, $simple);
         }
 
         if ($showlegend && $legend) {

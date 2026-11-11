@@ -46,6 +46,7 @@ $string['config_longbars'] = 'Anzeige langer Balken';
 $string['config_orderby'] = 'Balken anordnen nach';
 $string['config_orderby_course_order'] = 'Anordnung im Kurs';
 $string['config_orderby_due_time'] = 'Zeit mit \'{$a}\' Datum';
+$string['config_orderby_tasktype'] = 'Gruppiert nach Aufgabentyp';
 $string['config_percentage'] = 'Prozente für Teilnehmer/innen anzeigen';
 $string['config_scroll'] = 'Scrollen';
 $string['config_selectactivities'] = 'Aktivitäten auswählen';
@@ -56,6 +57,10 @@ $string['config_showtasktypelegend'] = 'Legende der Aufgabentypen unter dem Balk
 $string['config_showtasktypes'] = 'Aufgabentypen im Balken anzeigen';
 $string['config_showtasktypes_help'] = '<p>Zeigt in jedem Feld ein Icon für den Aufgabentyp. Der Typ wird aus dem ersten Wort des Aktivitätsnamens ermittelt, z.B. "Üben: Schleifen" oder "ABGABE - Projekt". Das Schlüsselwort muss ein eigenständiges Wort sein (gefolgt von Leerzeichen, Satzzeichen oder dem Ende des Namens); Groß-/Kleinschreibung wird ignoriert.</p><p>Die verfügbaren Aufgabentypen und Icons legt die Administration fest (Website-Administration &gt; Plugins &gt; Blöcke &gt; Fortschrittsbalken (TGM)).</p>';
 $string['config_squeeze'] = 'Skaliert';
+$string['config_tasktypeiconpos'] = 'Aufgabentyp-Icon bei Gruppierung';
+$string['config_tasktypeiconpos_both'] = 'Als Gruppenkopf und in jedem Feld';
+$string['config_tasktypeiconpos_cell'] = 'In jedem Feld';
+$string['config_tasktypeiconpos_header'] = 'Als Gruppenkopf';
 $string['config_title'] = 'Alternativer Titel';
 $string['config_unavailable_grey'] = 'Als graue Felder anzeigen';
 $string['config_unavailable_hide'] = 'Ursprüngliches Verhalten (verborgene weglassen)';
@@ -82,7 +87,7 @@ $string['how_longbars_works_help'] = '<p>Wenn Balken eine bestimmte Länge über
 <p>Beachten Sie, dass bei dieser Anzeige der \'Fortschrittsbalken\' nicht angezeigt wird.</p>';
 $string['how_ordering_works'] = 'Wie das Ordnen funktioniert';
 $string['how_ordering_works_help'] = '<p>Es gibt zwei Möglichkeiten, Aktivitäten im Block \'Fortschrittsbalken\' anzuordnen.</p>
-<ul><li><em>Datum der erwarteten Fertigstellung</em> (Standard) <br/>Die erwarteten Fertigstellungstermine der Aktivitäten / Ressourcen werden verwendet, um die Elemente des Balkens anzuordnen. Wenn Aktivitäten / Ressourcen keinen erwarteten Abschluss haben, wird stattdessen die Reihenfolge im Kurs verwendet. Wenn diese Möglichkeit gewählt wird, wird die Anzeige "JETZT" angezeigt</li><li><em>Reihenfolge im Kurs</em><br/>Aktivitäten / Ressourcen werden in derselben Reihenfolge dargestellt wie auf der Kursseite. Wenn diese Option verwendet wird, werden erwartete Fertigstellungstermine ignoriert. Wenn diese Option verwendet wird, wird die Anzeige "JETZT" nicht angezeigt. </li></ul>';
+<ul><li><em>Datum der erwarteten Fertigstellung</em> (Standard) <br/>Die erwarteten Fertigstellungstermine der Aktivitäten / Ressourcen werden verwendet, um die Elemente des Balkens anzuordnen. Wenn Aktivitäten / Ressourcen keinen erwarteten Abschluss haben, wird stattdessen die Reihenfolge im Kurs verwendet. Wenn diese Möglichkeit gewählt wird, wird die Anzeige "JETZT" angezeigt</li><li><em>Reihenfolge im Kurs</em><br/>Aktivitäten / Ressourcen werden in derselben Reihenfolge dargestellt wie auf der Kursseite. Wenn diese Option verwendet wird, werden erwartete Fertigstellungstermine ignoriert. Wenn diese Option verwendet wird, wird die Anzeige "JETZT" nicht angezeigt. </li><li><em>Gruppiert nach Aufgabentyp</em><br/>Aktivitäten mit gleichem Aufgabentyp (erstes Wort im Namen) bilden eine Gruppe. Die Gruppen folgen der Reihenfolge der Aufgabentyp-Definition, Aktivitäten ohne Typ stehen am Ende. Innerhalb einer Gruppe gilt die Reihenfolge im Kurs. Die Anzeige "JETZT" wird nicht angezeigt.</li></ul>';
 $string['how_selectactivities_works'] = 'Wie das Einbeziehen von Aktivitäten funktioniert';
 $string['how_selectactivities_works_help'] = '<p>Um Aktivitäten manuell in die Leiste aufzunehmen, müssen Sie die Option "eingefügte Aktivitäten" auf "ausgewählte Aktivitäten" setzen.</p><p>Es können nur Aktivitäten mit aktiviertem Aktivitätsabschluss eingefügt werden. Eine Mehrfachauswahl ist mit der Taste <strg> bzw. <cmd> möglich.</p>';
 $string['indeterminate'] = '?';
@@ -120,6 +125,7 @@ $string['submittednotcomplete_colour'] = '#FFCC00';
 $string['submittednotcomplete_colour_descr'] = 'HTML-Farbcode für Elemente, die eingereicht, aber noch nicht abgeschlossen sind.';
 $string['submittednotcomplete_colour_title'] = 'Farbe für eingereicht und noch nicht abgeschlossen';
 $string['tasktype'] = 'Aufgabentyp';
+$string['tasktype_other'] = 'Sonstige';
 $string['tasktypes'] = 'Aufgabentypen';
 $string['tasktypes_desc'] = 'Ein Aufgabentyp pro Zeile: <code>Schlüsselwort | Icon | Bezeichnung</code>. Das Schlüsselwort muss das erste Wort des Aktivitätsnamens sein (Groß-/Kleinschreibung egal). Icon: Font-Awesome-Klasse, z.B. <code>fa-dumbbell</code> (siehe fontawesome.com, kostenlose Solid-Icons). Die Bezeichnung ist optional, Standard ist das Schlüsselwort. Zeilen, die mit # beginnen, werden ignoriert.';
 $string['time_expected'] = 'Erwartet';

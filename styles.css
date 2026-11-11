@@ -150,6 +150,55 @@
     background-image: url([[pix:block_completion_progress_tgm|cross]]);
 }
 
+/* Grouped by task type: groups separated by a narrow strip of background. */
+.block_completion_progress_tgm .barRow {
+    --cpt-groupgap: 4px;
+}
+.block_completion_progress_tgm .barGroups {
+    display: flex;
+    gap: var(--cpt-groupgap);
+    align-items: flex-end;
+}
+.block_completion_progress_tgm .barModeWrap .barGroups {
+    flex-wrap: wrap;
+    row-gap: 2px;
+}
+.block_completion_progress_tgm .barModeScroll .barGroups {
+    display: inline-flex;
+}
+.block_completion_progress_tgm .barGroup {
+    min-width: 0;
+}
+.block_completion_progress_tgm .barModeSqueeze .barGroup .barRowCells {
+    display: flex;
+}
+.block_completion_progress_tgm .barModeWrap .barGroup .progressBarCell:first-of-type,
+.block_completion_progress_tgm .barGroup .progressBarCell:first-of-type {
+    border-top-left-radius: 0.26rem;
+    border-bottom-left-radius: 0.26rem;
+}
+.block_completion_progress_tgm .barModeWrap .barGroup .progressBarCell:last-of-type,
+.block_completion_progress_tgm .barGroup .progressBarCell:last-of-type {
+    border-top-right-radius: 0.26rem;
+    border-bottom-right-radius: 0.26rem;
+    border-right: solid 1px #e3e3e3;
+}
+.block_completion_progress_tgm .barGroupHeader {
+    font-size: x-small;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4;
+    padding: 0 2px;
+}
+.block_completion_progress_tgm .barGroupHeader .fa {
+    margin-right: 0.2rem;
+}
+.block_completion_progress_tgm .barWithNow .barGroups .barRowCells {
+    margin-top: 0;
+}
+
 /* Task type icons inside the cells. */
 .block_completion_progress_tgm .progressBarCell .typeIcon {
     position: absolute;

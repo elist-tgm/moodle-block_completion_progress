@@ -61,6 +61,8 @@
                 "availabilityinfo": ""
             }
         ],
+        "grouped": false,
+        "groups": [],
         "haslegend": true,
         "legend": [{"icon": "fa fa-dumbbell", "label": "Üben"}],
         "progresspercentage": "0%"
@@ -83,34 +85,28 @@
                     {{#barsqueeze}}barModeSqueeze{{/barsqueeze}}
                     {{#barwrap}}barModeWrap{{/barwrap}}
                     {{#barscroll}}barModeScroll{{/barscroll}}">
+                {{^grouped}}
                 <div class="barRowCells" style="{{#barwrap}}flex-basis: calc(100% / {{cellsperrow}}){{/barwrap}}">
-                    {{#cells}}<div class="progressBarCell
-                                {{#submittednotcomplete}}submittedNotComplete{{/submittednotcomplete}}
-                                {{#completed}}completed{{/completed}}
-                                {{#notcompleted}}notCompleted{{/notcompleted}}
-                                {{#futurenotcompleted}}futureNotCompleted{{/futurenotcompleted}}
-                                {{#unavailable}}unavailable{{/unavailable}}
-                                {{#hastype}}hasType{{/hastype}}"
-                        data-inforef="{{instanceid}}-{{userid}}-{{activityid}}"
-                        data-haslink="{{haslink}}">
-                        {{#typeicon}}<span class="typeIcon {{typeicon}}" aria-hidden="true"></span>{{/typeicon}}
-                        {{#firstnow}}
-                            <div class="nowDiv firstNow">
-                            {{#pix}} left, block_completion_progress_tgm {{/pix}}{{#str}} now_indicator, block_completion_progress_tgm {{/str}}
-                            </div>
-                        {{/firstnow}}
-                        {{#firsthalfnow}}
-                            <div class="nowDiv firstHalfNow">
-                            {{#pix}} left, block_completion_progress_tgm {{/pix}}{{#str}} now_indicator, block_completion_progress_tgm {{/str}}
-                            </div>
-                        {{/firsthalfnow}}
-                        {{#lasthalfnow}}
-                            <div class="nowDiv lastHalfNow">
-                            {{#str}} now_indicator, block_completion_progress_tgm {{/str}}{{#pix}} right, block_completion_progress_tgm {{/pix}}
-                            </div>
-                        {{/lasthalfnow}}
-                    </div>{{/cells}}
+                    {{#cells}}{{> block_completion_progress_tgm/progress_cell }}{{/cells}}
                 </div>
+                {{/grouped}}
+                {{#grouped}}
+                <div class="barGroups">
+                    {{#groups}}
+                    <div class="barGroup" style="{{groupstyle}}">
+                        {{#showheader}}
+                        <div class="barGroupHeader" title="{{label}}">
+                            {{#icon}}<span class="{{icon}}" aria-hidden="true"></span>{{/icon}}
+                            <span class="barGroupLabel">{{label}}</span>
+                        </div>
+                        {{/showheader}}
+                        <div class="barRowCells" style="{{cellsstyle}}">
+                            {{#cells}}{{> block_completion_progress_tgm/progress_cell }}{{/cells}}
+                        </div>
+                    </div>
+                    {{/groups}}
+                </div>
+                {{/grouped}}
             </div>
         </div>
 
