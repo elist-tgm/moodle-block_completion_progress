@@ -1,4 +1,4 @@
-@block @block_completion_progress @javascript
+@block @block_completion_progress_tgm @javascript
 Feature: Using block completion progress for a quiz
   In order to know what quizzes are due
   As a student
@@ -52,7 +52,7 @@ Feature: Using block completion progress for a quiz
   Scenario: Basic functioning of the block
     Given I log in as "student1"
     And I am on "Course 1" course homepage
-    When I hover ".block_completion_progress .progressBarCell:first-child" "css_element"
+    When I hover ".block_completion_progress_tgm .progressBarCell:first-child" "css_element"
     Then I should see "Progress: 0%" in the "Completion Progress" "block"
     And I should see "Quiz 1A No deadline" in the "Completion Progress" "block"
     And I should see "Not completed" in the "Completion Progress" "block"
@@ -63,7 +63,7 @@ Feature: Using block completion progress for a quiz
     And I follow "Finish attempt ..."
     And I press "Submit all and finish"
     And I am on "Course 1" course homepage
-    When I hover ".block_completion_progress .progressBarCell:first-child" "css_element"
+    When I hover ".block_completion_progress_tgm .progressBarCell:first-child" "css_element"
     Then I should see "Progress: 100%" in the "Completion Progress" "block"
     And I should see "Quiz 1A No deadline" in the "Completion Progress" "block"
     And I should see "Completed" in the "Completion Progress" "block"

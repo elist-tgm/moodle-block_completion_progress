@@ -17,7 +17,7 @@
 /**
  * Completion Progress block version details
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2018 Michael de Raadt
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -28,5 +28,5 @@ $plugin->version   = 2026111100;
 $plugin->requires  = 2024100700;
 $plugin->maturity  = MATURITY_STABLE;
 $plugin->release   = 'Version for Moodle 4.5 onwards (+ unavailable grey cells)';
-$plugin->component = 'block_completion_progress';
+$plugin->component = 'block_completion_progress_tgm';
 $plugin->supported = [405, 503];

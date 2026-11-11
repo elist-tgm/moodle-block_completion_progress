@@ -17,12 +17,12 @@
 /**
  * Completion Progress block.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2026 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace block_completion_progress;
+namespace block_completion_progress_tgm;
 
 /**
  * Miscellaneous helpers.
@@ -32,8 +32,8 @@ abstract class helpers {
      * Bumps a value to assist in caching of configured colours in css.php.
      */
     public static function increment_cache_value() {
-        $value = get_config('block_completion_progress', 'cachevalue') + 1;
-        set_config('cachevalue', $value, 'block_completion_progress');
+        $value = get_config('block_completion_progress_tgm', 'cachevalue') + 1;
+        set_config('cachevalue', $value, 'block_completion_progress_tgm');
     }
 
     /**

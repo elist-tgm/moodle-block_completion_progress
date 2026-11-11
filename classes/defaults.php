@@ -17,18 +17,18 @@
 /**
  * Completion Progress block.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2016 Michael de Raadt
  * @copyright  2021 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace block_completion_progress;
+namespace block_completion_progress_tgm;
 
 /**
  * Completion Progress defaults.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2016 Michael de Raadt
  * @copyright  2021 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

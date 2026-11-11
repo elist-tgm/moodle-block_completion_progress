@@ -16,7 +16,7 @@
 /**
  * Overview table filter.
  *
- * @module  block_completion_progress/overview_filter
+ * @module  block_completion_progress_tgm/overview_filter
  * @copyright 2021 Tomo Tsuyuki <tomotsuyuki@catalyst-au.net>
  * @copyright 2025 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -27,7 +27,7 @@ import DataFilter from 'core/datafilter';
 import DataFilterSelectors from 'core/datafilter/selectors';
 import * as DynamicTable from 'core_table/dynamic';
 import Notification from 'core/notification';
-import BlockInstanceFilter from 'block_completion_progress/datafilter/filtertypes/blockinstanceid';
+import BlockInstanceFilter from 'block_completion_progress_tgm/datafilter/filtertypes/blockinstanceid';
 
 /**
  * Initialise the overview table filter.

@@ -17,7 +17,7 @@
 /**
  * Completion Progress block runtime configured styles.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2020 Jonathon Fowler
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -42,9 +42,9 @@ $colours = [
     'unavailable' => 'unavailable_colour',
 ];
 foreach ($colours as $classname => $stringkey) {
-    $colour = get_config('block_completion_progress', $stringkey) ?:
-        get_string($stringkey, 'block_completion_progress');
-    $css .= ".block_completion_progress .progressBarCell.$classname { ";
+    $colour = get_config('block_completion_progress_tgm', $stringkey) ?:
+        get_string($stringkey, 'block_completion_progress_tgm');
+    $css .= ".block_completion_progress_tgm .progressBarCell.$classname { ";
     $css .= "background-color: $colour;";
     $css .= " }\n";
 }

@@ -17,7 +17,7 @@
 /**
  * Completion Progress block capability setup
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2016 Michael de Raadt
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = [
-    'block/completion_progress:overview' => [
+    'block/completion_progress_tgm:overview' => [
         'riskbitmask'   => RISK_PERSONAL,
         'captype'       => 'read',
         'contextlevel'  => CONTEXT_BLOCK,
@@ -36,7 +36,7 @@ $capabilities = [
         ],
     ],
 
-    'block/completion_progress:showbar' => [
+    'block/completion_progress_tgm:showbar' => [
         'captype'       => 'read',
         'contextlevel'  => CONTEXT_BLOCK,
         'archetypes'    => [
@@ -46,7 +46,7 @@ $capabilities = [
         ],
     ],
 
-    'block/completion_progress:addinstance' => [
+    'block/completion_progress_tgm:addinstance' => [
         'riskbitmask' => RISK_PERSONAL,
         'captype' => 'write',
         'contextlevel' => CONTEXT_BLOCK,
@@ -58,7 +58,7 @@ $capabilities = [
         'clonepermissionsfrom' => 'moodle/site:manageblocks',
     ],
 
-    'block/completion_progress:myaddinstance' => [
+    'block/completion_progress_tgm:myaddinstance' => [
         'riskbitmask' => RISK_PERSONAL,
         'captype' => 'read',
         'contextlevel' => CONTEXT_SYSTEM,

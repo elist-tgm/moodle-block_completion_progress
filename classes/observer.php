@@ -17,17 +17,17 @@
 /**
  * Completion Progress block.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2025 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace block_completion_progress;
+namespace block_completion_progress_tgm;
 
 /**
  * Completion Progress block event observers.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2025 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -43,7 +43,7 @@ class observer {
         if (!$coursectx) {
             return;
         }
-        $DB->delete_records('block_completion_progress', [
+        $DB->delete_records('block_completion_tgm', [
             'courseid' => $coursectx->instanceid,
             'userid' => $event->relateduserid,
         ]);
@@ -60,7 +60,7 @@ class observer {
         if (!$coursectx) {
             return;
         }
-        $DB->delete_records('block_completion_progress', [
+        $DB->delete_records('block_completion_tgm', [
             'courseid' => $coursectx->instanceid,
         ]);
     }

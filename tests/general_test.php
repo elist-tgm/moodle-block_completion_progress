@@ -15,31 +15,31 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * General unit tests for block_completion_progress.
+ * General unit tests for block_completion_progress_tgm.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2017 onwards Nelson Moller  {@link http://moodle.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace block_completion_progress;
+namespace block_completion_progress_tgm;
 
 defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
 require_once($CFG->dirroot . '/mod/assign/locallib.php');
 require_once($CFG->dirroot . '/blocks/moodleblock.class.php');
-require_once($CFG->dirroot . '/blocks/completion_progress/block_completion_progress.php');
+require_once($CFG->dirroot . '/blocks/completion_progress_tgm/block_completion_progress_tgm.php');
 require_once($CFG->dirroot . '/backup/util/includes/backup_includes.php');
 
-use block_completion_progress\completion_progress;
-use block_completion_progress\defaults;
-use block_completion_progress\helpers;
+use block_completion_progress_tgm\completion_progress;
+use block_completion_progress_tgm\defaults;
+use block_completion_progress_tgm\helpers;
 
 /**
- * General unit tests for block_completion_progress.
+ * General unit tests for block_completion_progress_tgm.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2017 onwards Nelson Moller  {@link http://moodle.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -116,7 +116,7 @@ final class general_test extends \advanced_testcase {
 
     /**
      * Check that a student's excluded grade hides the activity from the student's progress bar.
-     * @covers \block_completion_progress\completion_progress
+     * @covers \block_completion_progress_tgm\completion_progress
      */
     public function test_grade_excluded(): void {
         // Add a block.
@@ -138,7 +138,7 @@ final class general_test extends \advanced_testcase {
                 'activitiesincluded' => defaults::ACTIVITIESINCLUDED,
             ])),
         ];
-        $blockinstance = $this->getDataGenerator()->create_block('completion_progress', $blockinfo);
+        $blockinstance = $this->getDataGenerator()->create_block('completion_progress_tgm', $blockinfo);
 
         $assign = $this->create_assign_instance([
           'submissiondrafts' => 0,
@@ -175,7 +175,7 @@ final class general_test extends \advanced_testcase {
 
     /**
      * Test checking of pages at site-level or not.
-     * @covers \block_completion_progress
+     * @covers \block_completion_progress_tgm
      */
     public function test_on_site_page(): void {
         global $PAGE;
@@ -225,7 +225,7 @@ final class general_test extends \advanced_testcase {
 
     /**
      * Test that asynchronous course copy preserves all expected block instances.
-     * @covers \restore_completion_progress_block_task
+     * @covers \restore_completion_progress_tgm_block_task
      */
     public function test_course_copy(): void {
         global $DB;
@@ -253,7 +253,7 @@ final class general_test extends \advanced_testcase {
                 'group' => 'group-' . $group->id,
             ])),
         ];
-        $generator->create_block('completion_progress', $block1data);
+        $generator->create_block('completion_progress_tgm', $block1data);
         $block2data = [
             'parentcontextid' => $context->id,
             'pagetypepattern' => 'course-view-*',
@@ -271,7 +271,7 @@ final class general_test extends \advanced_testcase {
                 'activitiesincluded' => defaults::ACTIVITIESINCLUDED,
             ])),
         ];
-        $generator->create_block('completion_progress', $block2data);
+        $generator->create_block('completion_progress_tgm', $block2data);
 
         $mdata = new \stdClass();
         $mdata->courseid = $this->course->id;
@@ -306,7 +306,7 @@ final class general_test extends \advanced_testcase {
         $copygroup = groups_get_group_by_idnumber($copy->id, 'g1');
 
         $blocks = $DB->get_records('block_instances', [
-            'blockname' => 'completion_progress',
+            'blockname' => 'completion_progress_tgm',
             'parentcontextid' => $context->id,
         ]);
         $this->assertCount(2, $blocks);
@@ -328,12 +328,12 @@ final class general_test extends \advanced_testcase {
 
     /**
      * Test course modules view urls.
-     * @covers \block_completion_progress\completion_progress
+     * @covers \block_completion_progress_tgm\completion_progress
      */
     public function test_view_urls(): void {
         // Add a block.
         $context = \context_course::instance($this->course->id);
-        $blockinstance = $this->getDataGenerator()->create_block('completion_progress', [
+        $blockinstance = $this->getDataGenerator()->create_block('completion_progress_tgm', [
             'parentcontextid' => $context->id,
             'pagetypepattern' => 'course-view-*',
             'showinsubcontexts' => 0,
@@ -531,7 +531,7 @@ final class general_test extends \advanced_testcase {
      * behave as expected.
      * @param int $inputconfig
      * @param int $expected
-     * @covers \block_completion_progress\completion_progress
+     * @covers \block_completion_progress_tgm\completion_progress
      * @dataProvider visibility_and_availability_provider
      */
     public function test_visibility_and_availability($inputconfig, $expected): void {
@@ -622,7 +622,7 @@ final class general_test extends \advanced_testcase {
                 'activitiesincluded' => defaults::ACTIVITIESINCLUDED,
             ])),
         ];
-        $blockinstance = $generator->create_block('completion_progress', $blockinfo);
+        $blockinstance = $generator->create_block('completion_progress_tgm', $blockinfo);
 
         $block = new completion_progress($this->course);
         $block->for_block_instance($blockinstance);

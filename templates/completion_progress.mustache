@@ -15,7 +15,7 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template block_completion_progress/completion_progress
+    @template block_completion_progress_tgm/completion_progress
 
     Produces a progress bar.
 
@@ -62,10 +62,10 @@
     }
 }}
 {{#novisibleactivities}}
-    {{#str}} no_visible_activities_message, block_completion_progress {{/str}}
+    {{#str}} no_visible_activities_message, block_completion_progress_tgm {{/str}}
 {{/novisibleactivities}}
 {{^novisibleactivities}}
-    <div class="block_completion_progress">
+    <div class="block_completion_progress_tgm">
         <div class="barContainer" data-courseid="{{courseid}}" data-instanceid="{{instanceid}}" data-userid="{{userid}}">
             {{#barscroll}}
                 <svg class="left-arrow-svg" height="30" width="30"><polygon points="30,0 0,15 30,30" class="triangle-polygon"></svg>
@@ -89,17 +89,17 @@
                         data-haslink="{{haslink}}">
                         {{#firstnow}}
                             <div class="nowDiv firstNow">
-                            {{#pix}} left, block_completion_progress {{/pix}}{{#str}} now_indicator, block_completion_progress {{/str}}
+                            {{#pix}} left, block_completion_progress_tgm {{/pix}}{{#str}} now_indicator, block_completion_progress_tgm {{/str}}
                             </div>
                         {{/firstnow}}
                         {{#firsthalfnow}}
                             <div class="nowDiv firstHalfNow">
-                            {{#pix}} left, block_completion_progress {{/pix}}{{#str}} now_indicator, block_completion_progress {{/str}}
+                            {{#pix}} left, block_completion_progress_tgm {{/pix}}{{#str}} now_indicator, block_completion_progress_tgm {{/str}}
                             </div>
                         {{/firsthalfnow}}
                         {{#lasthalfnow}}
                             <div class="nowDiv lastHalfNow">
-                            {{#str}} now_indicator, block_completion_progress {{/str}}{{#pix}} right, block_completion_progress {{/pix}}
+                            {{#str}} now_indicator, block_completion_progress_tgm {{/str}}{{#pix}} right, block_completion_progress_tgm {{/pix}}
                             </div>
                         {{/lasthalfnow}}
                     </div>{{/cells}}
@@ -109,14 +109,14 @@
 
         {{#progresspercentage}}
             <div class="progressPercentage">
-                {{#str}} progress, block_completion_progress {{/str}}: {{progresspercentage}}
+                {{#str}} progress, block_completion_progress_tgm {{/str}}: {{progresspercentage}}
             </div>
         {{/progresspercentage}}
 
         <div class="progressEventInfo">
             {{^simple}}
-                {{#str}} mouse_over_prompt, block_completion_progress {{/str}}
-                <a href="#" class="accesshide progressShowAllInfo">{{#str}} showallinfo, block_completion_progress {{/str}}</a>
+                {{#str}} mouse_over_prompt, block_completion_progress_tgm {{/str}}
+                <a href="#" class="accesshide progressShowAllInfo">{{#str}} showallinfo, block_completion_progress_tgm {{/str}}</a>
             {{/simple}}
         </div>
 
@@ -144,22 +144,22 @@
                 {{/infofailed}}
                 {{#infosubmitted}}
                     {{#str}} completion-n, completion {{/str}}
-                    ({{#str}} submitted, block_completion_progress {{/str}})
+                    ({{#str}} submitted, block_completion_progress_tgm {{/str}})
                 {{/infosubmitted}}
                 {{#infoincomplete}}
                     {{#str}} completion-n, completion {{/str}}
                 {{/infoincomplete}}
-                {{#pix}} {{infoicon}}, block_completion_progress {{/pix}}
+                {{#pix}} {{infoicon}}, block_completion_progress_tgm {{/pix}}
                 <br>
                 {{#infounavailable}}
                     <div class="unavailableInfo">
-                        {{#str}} unavailable, block_completion_progress {{/str}}
+                        {{#str}} unavailable, block_completion_progress_tgm {{/str}}
                         {{#availabilityinfo}}<div class="availabilityinfo">{{{availabilityinfo}}}</div>{{/availabilityinfo}}
                     </div>
                 {{/infounavailable}}
                 {{#activityexpected}}
                     <div class="expectedBy">
-                        {{#str}} time_expected, block_completion_progress {{/str}}:
+                        {{#str}} time_expected, block_completion_progress_tgm {{/str}}:
                         {{#userdate}} {{activityexpected}}, {{#str}} strftimedate, langconfig {{/str}} {{/userdate}}
                     </div>
                 {{/activityexpected}}

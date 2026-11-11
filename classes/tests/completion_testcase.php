@@ -17,24 +17,24 @@
 /**
  * Completion unit tests common base for Completion Progress block.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2020 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace block_completion_progress\tests;
+namespace block_completion_progress_tgm\tests;
 
 defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
 
-use block_completion_progress\completion_progress;
-use block_completion_progress\defaults;
+use block_completion_progress_tgm\completion_progress;
+use block_completion_progress_tgm\defaults;
 
 /**
  * Completion unit tests common base for Completion Progress block.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2020 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -85,7 +85,7 @@ abstract class completion_testcase extends \advanced_testcase {
                 'activitiesincluded' => defaults::ACTIVITIESINCLUDED,
             ])),
         ];
-        $this->blockinstance = $this->getDataGenerator()->create_block('completion_progress', $blockinfo);
+        $this->blockinstance = $this->getDataGenerator()->create_block('completion_progress_tgm', $blockinfo);
     }
 
     /**

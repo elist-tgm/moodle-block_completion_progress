@@ -1,3 +1,12 @@
+# Completion Progress block (TGM fork)
+
+Fork of [block_completion_progress](https://github.com/jonof/moodle-block_completion_progress),
+renamed to `block_completion_progress_tgm` so it can be installed alongside the original.
+Install into `blocks/completion_progress_tgm`. Cache table: `block_completion_tgm`.
+
+Extensions:
+- (Not yet) accessible activities are shown as grey cells (block setting).
+
 # Completion Progress block for Moodle
 
 The Completion Progress block is a time-management tool for students. It visually shows what activities/resources a student is supposed to interact with in a course. It is colour-coded so students can quickly see what they have and have not completed/viewed. The block shows activities with activity completion settings.

@@ -17,7 +17,7 @@
 /**
  * Completion Progress block upgrade steps.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2025 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -26,59 +26,13 @@
  * Upgrade steps.
  * @param int $oldversion
  */
-function xmldb_block_completion_progress_upgrade($oldversion) {
-    global $DB, $OUTPUT;
+function xmldb_block_completion_progress_tgm_upgrade($oldversion) {
+    global $DB;
 
     $dbman = $DB->get_manager();
 
-    if ($oldversion < 2025011600) {
-        $context = context_system::instance();
-
-        $cap = 'block/completion_progress:overview';
-        foreach (get_roles_with_capability($cap, CAP_ALLOW, $context) as $role) {
-            if ($role->archetype === 'coursecreator') {
-                unassign_capability($cap, $role->id, SYSCONTEXTID);
-                echo $OUTPUT->notification("'$cap' capability has been unassigned from " .
-                    "role '{$role->shortname}' at site level for privacy reasons.", 'info');
-            }
-        }
-
-        $cap = 'block/completion_progress:addinstance';
-        $manageblocksroles = get_roles_with_capability('moodle/site:manageblocks', CAP_ALLOW, $context);
-        foreach (get_roles_with_capability($cap, CAP_ALLOW, $context) as $role) {
-            if ($role->archetype === 'coursecreator' && !isset($manageblocksroles[$role->id])) {
-                unassign_capability($cap, $role->id, SYSCONTEXTID);
-                echo $OUTPUT->notification("'$cap' capability has been unassigned from " .
-                    "role '{$role->shortname}' at site level for consistency reasons.", 'info');
-            }
-        }
-
-        upgrade_plugin_savepoint(true, 2025011600, 'block', 'completion_progress');
-    }
-
-    if ($oldversion < 2025090200) {
-        $dbman->install_from_xmldb_file(__DIR__ . '/install.xml');
-        upgrade_plugin_savepoint(true, 2025090200, 'block', 'completion_progress');
-    }
-
-    if ($oldversion < 2026090100) {
-        $DB->delete_records('block_completion_progress');
-
-        $table = new xmldb_table('block_completion_progress');
-        $field = new xmldb_field('courseid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null, 'id');
-        $key = new xmldb_key('courseid', XMLDB_KEY_FOREIGN, ['courseid'], 'course', ['id']);
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
-            $dbman->add_key($table, $key);
-        }
-
-        $index = new xmldb_index('courseid-blockinstanceid-userid', XMLDB_INDEX_UNIQUE, ['courseid', 'blockinstanceid', 'userid']);
-        if (!$dbman->index_exists($table, $index)) {
-            $dbman->add_index($table, $index);
-        }
-
-        upgrade_plugin_savepoint(true, 2026090100, 'block', 'completion_progress');
-    }
+    // Upstream upgrade steps of block_completion_progress are not needed:
+    // block_completion_progress_tgm is always installed fresh from install.xml.
 
     return true;
 }

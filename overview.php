@@ -17,7 +17,7 @@
 /**
  * Completion Progress block overview page
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2018 Michael de Raadt
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -28,10 +28,10 @@ define('NO_OUTPUT_BUFFERING', true);
 require_once(dirname(__DIR__, 2) . '/config.php');
 require_once($CFG->dirroot . '/notes/lib.php');
 
-use block_completion_progress\completion_progress;
-use block_completion_progress\output\overview_filter;
-use block_completion_progress\table\overview;
-use block_completion_progress\table\overview_filterset;
+use block_completion_progress_tgm\completion_progress;
+use block_completion_progress_tgm\output\overview_filter;
+use block_completion_progress_tgm\table\overview;
+use block_completion_progress_tgm\table\overview_filterset;
 use core_table\local\filter\filter;
 use core_table\local\filter\integer_filter;
 
@@ -43,17 +43,17 @@ $download = optional_param('download', '', PARAM_ALPHA);
 
 // Determine course and contexts.
 $course = $DB->get_record('course', ['id' => $courseid], '*', MUST_EXIST);
-$blockinstance = $DB->get_record('block_instances', ['id' => $instanceid, 'blockname' => 'completion_progress'], '*', MUST_EXIST);
+$blockinstance = $DB->get_record('block_instances', ['id' => $instanceid, 'blockname' => 'completion_progress_tgm'], '*', MUST_EXIST);
 $context = context_course::instance($courseid);
 $blockcontext = context_block::instance($instanceid);
 if (!$blockcontext->is_child_of($context, false) && !$blockcontext->is_child_of(context_course::instance(SITEID), false)) {
-    throw new moodle_exception('errorinvalidblockinstanceid', 'block_completion_progress');
+    throw new moodle_exception('errorinvalidblockinstanceid', 'block_completion_progress_tgm');
 }
 
 // Set up page parameters.
-$strtitle = get_string('overview', 'block_completion_progress');
+$strtitle = get_string('overview', 'block_completion_progress_tgm');
 $PAGE->set_course($course);
-$PAGE->set_url('/blocks/completion_progress/overview.php', ['instanceid' => $instanceid, 'courseid' => $courseid]);
+$PAGE->set_url('/blocks/completion_progress_tgm/overview.php', ['instanceid' => $instanceid, 'courseid' => $courseid]);
 $PAGE->set_context($context);
 $PAGE->set_title("$course->shortname: $strtitle");
 $PAGE->set_heading($course->fullname);
@@ -62,14 +62,14 @@ $PAGE->set_pagelayout('report');
 
 // Check user is logged in and capable of accessing the Overview.
 require_login($course, false);
-require_capability('block/completion_progress:overview', $context);
+require_capability('block/completion_progress_tgm:overview', $context);
 
-$cachevalue = debugging() ? -1 : (int)get_config('block_completion_progress', 'cachevalue');
-$PAGE->requires->css('/blocks/completion_progress/css.php?v=' . $cachevalue);
-$PAGE->requires->js_call_amd('block_completion_progress/progressbar', 'init');
-$PAGE->requires->js_call_amd('block_completion_progress/overview', 'init', [$course->id, note_get_state_names()]);
+$cachevalue = debugging() ? -1 : (int)get_config('block_completion_progress_tgm', 'cachevalue');
+$PAGE->requires->css('/blocks/completion_progress_tgm/css.php?v=' . $cachevalue);
+$PAGE->requires->js_call_amd('block_completion_progress_tgm/progressbar', 'init');
+$PAGE->requires->js_call_amd('block_completion_progress_tgm/overview', 'init', [$course->id, note_get_state_names()]);
 
-$output = $PAGE->get_renderer('block_completion_progress');
+$output = $PAGE->get_renderer('block_completion_progress_tgm');
 
 $progress = (new completion_progress($course))->for_overview()->for_block_instance($blockinstance);
 
@@ -113,7 +113,7 @@ if (($filtersetparam = optional_param('filterset', null, PARAM_RAW)) !== null) {
     }
 }
 
-$table = new overview('block_completion_progress-overview-' . $instanceid);
+$table = new overview('block_completion_progress_tgm-overview-' . $instanceid);
 $table->set_filterset($filterset);
 $filter = new overview_filter(
     $context,
@@ -121,7 +121,7 @@ $filter = new overview_filter(
     $table->uniqueid
 );
 
-if ($table->is_downloading($download, 'completion_progress-' . $course->shortname)) {
+if ($table->is_downloading($download, 'completion_progress_tgm-' . $course->shortname)) {
     $table->out(0, false);
     exit;
 }
@@ -130,7 +130,7 @@ echo $output->header();
 echo $output->heading($strtitle);
 
 if (!$progress->has_activities()) {
-    echo get_string('no_activities_message', 'block_completion_progress');
+    echo get_string('no_activities_message', 'block_completion_progress_tgm');
     echo $output->footer();
     exit;
 }
@@ -140,7 +140,7 @@ if ($table->needs_percentages_computed()) {
     // If sorting happens on dynamic load, sucks to be the user watching the spinner.
     core_php_time_limit::raise(0);
     $computeprogress = new progress_bar('', 500, true);
-    $strcomputeprogress = get_string('computeprogress', 'block_completion_progress');
+    $strcomputeprogress = get_string('computeprogress', 'block_completion_progress_tgm');
     $progress->compute_overview_percentages(fn($pct) => $computeprogress->update_full($pct, $strcomputeprogress));
     // Delete the progress bar from the page.
     echo html_writer::script(

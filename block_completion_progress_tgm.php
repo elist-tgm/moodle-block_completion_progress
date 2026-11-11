@@ -17,14 +17,14 @@
 /**
  * Completion Progress block definition
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2016 Michael de Raadt
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use block_completion_progress\completion_progress;
-use block_completion_progress\defaults;
-use block_completion_progress\helpers;
+use block_completion_progress_tgm\completion_progress;
+use block_completion_progress_tgm\defaults;
+use block_completion_progress_tgm\helpers;
 
 /**
  * Completion Progress block class
@@ -32,14 +32,14 @@ use block_completion_progress\helpers;
  * @copyright 2016 Michael de Raadt
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class block_completion_progress extends block_base {
+class block_completion_progress_tgm extends block_base {
     /**
      * Sets the block title
      *
      * @return void
      */
     public function init() {
-        $this->title = get_string('pluginname', 'block_completion_progress');
+        $this->title = get_string('pluginname', 'block_completion_progress_tgm');
     }
 
     /**
@@ -92,7 +92,7 @@ class block_completion_progress extends block_base {
      */
     public function instance_delete() {
         global $DB;
-        $DB->delete_records('block_completion_progress', ['blockinstanceid' => $this->instance->id]);
+        $DB->delete_records('block_completion_tgm', ['blockinstanceid' => $this->instance->id]);
         return parent::instance_delete();
     }
 
@@ -115,8 +115,8 @@ class block_completion_progress extends block_base {
      */
     public function get_required_javascript() {
         parent::get_required_javascript();
-        if ($this->page->requires->should_create_one_time_item_now('block_completion_progress')) {
-            $this->page->requires->js_call_amd('block_completion_progress/progressbar', 'init');
+        if ($this->page->requires->should_create_one_time_item_now('block_completion_progress_tgm')) {
+            $this->page->requires->js_call_amd('block_completion_progress_tgm/progressbar', 'init');
         }
     }
 
@@ -152,8 +152,8 @@ class block_completion_progress extends block_base {
         }
 
         // Organise access to JS.
-        $cachevalue = debugging('', DEBUG_DEVELOPER) ? -1 : (int)get_config('block_completion_progress', 'cachevalue');
-        $this->page->requires->css('/blocks/completion_progress/css.php?v=' . $cachevalue);
+        $cachevalue = debugging('', DEBUG_DEVELOPER) ? -1 : (int)get_config('block_completion_progress_tgm', 'cachevalue');
+        $this->page->requires->css('/blocks/completion_progress_tgm/css.php?v=' . $cachevalue);
 
         return $this->content;
     }
@@ -165,21 +165,21 @@ class block_completion_progress extends block_base {
     protected function prepare_dashboard_content() {
         global $USER, $CFG, $DB;
 
-        $output = $this->page->get_renderer('block_completion_progress');
+        $output = $this->page->get_renderer('block_completion_progress_tgm');
 
         if (!$CFG->enablecompletion) {
-            $this->content->text .= get_string('completion_not_enabled', 'block_completion_progress');
+            $this->content->text .= get_string('completion_not_enabled', 'block_completion_progress_tgm');
             return false;
         }
 
         // Show a message when the user is not enrolled in any courses.
         $courses = enrol_get_my_courses();
         if (($this->page->user_is_editing() || is_siteadmin()) && empty($courses)) {
-            $this->content->text = get_string('no_courses', 'block_completion_progress');
+            $this->content->text = get_string('no_courses', 'block_completion_progress_tgm');
             return false;
         }
 
-        $coursenametoshow = get_config('block_completion_progress', 'coursenametoshow') ?:
+        $coursenametoshow = get_config('block_completion_progress_tgm', 'coursenametoshow') ?:
             defaults::COURSENAMETOSHOW;
         $sql = "SELECT bi.id,
                        COALESCE(bp.visible, 1) AS visible,
@@ -187,7 +187,7 @@ class block_completion_progress extends block_base {
                   FROM {block_instances} bi
              LEFT JOIN {block_positions} bp ON bp.blockinstanceid = bi.id
                            AND {$DB->sql_like('bp.pagetype', ':pagetype', false)}
-                 WHERE bi.blockname = 'completion_progress'
+                 WHERE bi.blockname = 'completion_progress_tgm'
                    AND bi.parentcontextid = :contextid
               ORDER BY COALESCE(bp.region, bi.defaultregion),
                        COALESCE(bp.weight, bi.defaultweight),
@@ -209,7 +209,7 @@ class block_completion_progress extends block_base {
                 $blockinstance = $blockprogress->get_block_instance();
                 $blockconfig = $blockprogress->get_block_config();
                 if (
-                    !has_capability('block/completion_progress:showbar', context_block::instance($blockinstance->id)) ||
+                    !has_capability('block/completion_progress_tgm:showbar', context_block::instance($blockinstance->id)) ||
                     !$blockinstance->visible ||
                     !$blockprogress->has_visible_activities()
                 ) {
@@ -244,7 +244,7 @@ class block_completion_progress extends block_base {
 
         // Show a message explaining lack of bars, but only while editing is on.
         if ($this->page->user_is_editing() && $this->content->text == '') {
-            $this->content->text = get_string('no_blocks', 'block_completion_progress');
+            $this->content->text = get_string('no_blocks', 'block_completion_progress_tgm');
         }
 
         return true;
@@ -257,7 +257,7 @@ class block_completion_progress extends block_base {
     protected function prepare_course_content() {
         global $USER, $COURSE, $CFG, $OUTPUT;
 
-        $output = $this->page->get_renderer('block_completion_progress');
+        $output = $this->page->get_renderer('block_completion_progress_tgm');
 
         // Check if user is in group for block.
         if (
@@ -271,7 +271,7 @@ class block_completion_progress extends block_base {
         // Check if completion is enabled at site level.
         if (!$CFG->enablecompletion) {
             if (has_capability('moodle/block:edit', $this->context)) {
-                $this->content->text .= get_string('completion_not_enabled', 'block_completion_progress');
+                $this->content->text .= get_string('completion_not_enabled', 'block_completion_progress_tgm');
             }
             return false;
         }
@@ -281,7 +281,7 @@ class block_completion_progress extends block_base {
         // Check if completion is enabled at course level.
         if (!$progress->get_completion_info()->is_enabled()) {
             if (has_capability('moodle/block:edit', $this->context)) {
-                $this->content->text .= get_string('completion_not_enabled_course', 'block_completion_progress');
+                $this->content->text .= get_string('completion_not_enabled_course', 'block_completion_progress_tgm');
             }
             return false;
         }
@@ -291,21 +291,21 @@ class block_completion_progress extends block_base {
         // Check if any activities/resources have been created.
         if (!$progress->has_visible_activities()) {
             if (has_capability('moodle/block:edit', $this->context)) {
-                $this->content->text .= get_string('no_activities_config_message', 'block_completion_progress');
+                $this->content->text .= get_string('no_activities_config_message', 'block_completion_progress_tgm');
             }
             return false;
         }
 
         // Display progress bar.
-        if (has_capability('block/completion_progress:showbar', $this->context)) {
+        if (has_capability('block/completion_progress_tgm:showbar', $this->context)) {
             $this->content->text .= $output->render($progress);
         }
 
         // Allow teachers to access the overview page.
-        if (has_capability('block/completion_progress:overview', $this->context)) {
+        if (has_capability('block/completion_progress_tgm:overview', $this->context)) {
             $parameters = ['instanceid' => $this->instance->id, 'courseid' => $COURSE->id];
-            $url = new moodle_url('/blocks/completion_progress/overview.php', $parameters);
-            $label = get_string('overview', 'block_completion_progress');
+            $url = new moodle_url('/blocks/completion_progress_tgm/overview.php', $parameters);
+            $label = get_string('overview', 'block_completion_progress_tgm');
             $options = ['class' => 'overviewButton'];
             $this->content->text .= $OUTPUT->single_button($url, $label, 'get', $options);
         }

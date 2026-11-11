@@ -1,4 +1,4 @@
-@block @block_completion_progress @javascript
+@block @block_completion_progress_tgm @javascript
 Feature: Using Completion Progress block overview
   In order to see full class progress
   As a teacher

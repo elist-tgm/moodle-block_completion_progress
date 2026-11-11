@@ -8,7 +8,7 @@
         "composer/installers": "*"
     },
     "extra": {
-        "installer-name": "completion_progress"
+        "installer-name": "completion_progress_tgm"
     },
     "support": {
         "issues": "https://github.com/jonof/moodle-block_completion_progress/issues",

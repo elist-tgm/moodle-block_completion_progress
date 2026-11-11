@@ -17,14 +17,14 @@
 /**
  * Completion Progress block.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2026 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace block_completion_progress\external;
+namespace block_completion_progress_tgm\external;
 
-use block_completion_progress\completion_progress;
+use block_completion_progress_tgm\completion_progress;
 use core_external\external_api;
 use core_external\external_function_parameters;
 use core_external\external_multiple_structure;
@@ -196,22 +196,22 @@ class get_blockinstance_data extends external_api {
         $context = \context_course::instance($courseid);
         self::validate_context($context);
 
-        require_capability('block/completion_progress:showbar', $context);
+        require_capability('block/completion_progress_tgm:showbar', $context);
 
         $course = get_course($courseid);
         $blockinstance = $DB->get_record('block_instances', ['id' => $instanceid], '*', MUST_EXIST);
 
         $progress = new completion_progress($course);
         if (!$progress->get_completion_info()->is_enabled()) {
-            throw new \moodle_exception('completion_not_enabled_course', 'block_completion_progress');
+            throw new \moodle_exception('completion_not_enabled_course', 'block_completion_progress_tgm');
         }
 
         $progress->for_user($USER)->for_block_instance($blockinstance);
         if (!$progress->has_visible_activities()) {
-            throw new \moodle_exception('no_activities_config_message', 'block_completion_progress');
+            throw new \moodle_exception('no_activities_config_message', 'block_completion_progress_tgm');
         }
 
-        $output = $PAGE->get_renderer('block_completion_progress');
+        $output = $PAGE->get_renderer('block_completion_progress_tgm');
         return $progress->export_for_template($output);
     }
 }

@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * block_completion_progress data generator
+ * block_completion_progress_tgm data generator
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @category   test
  * @copyright  2018 Michael Aherne
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -26,10 +26,10 @@
 /**
  * Completion progress block data generator class
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @category   test
  * @copyright  2018 Michael Aherne
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class block_completion_progress_generator extends testing_block_generator {
+class block_completion_progress_tgm_generator extends testing_block_generator {
 }

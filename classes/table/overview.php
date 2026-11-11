@@ -17,18 +17,18 @@
 /**
  * Completion Progress block overview table.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2016 Michael de Raadt
  * @copyright  2021 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace block_completion_progress\table;
+namespace block_completion_progress_tgm\table;
 
 defined('MOODLE_INTERNAL') || die;
 
-use block_completion_progress\completion_progress;
-use block_completion_progress\defaults;
+use block_completion_progress_tgm\completion_progress;
+use block_completion_progress_tgm\defaults;
 use context_block;
 use core_table\dynamic;
 use core_table\local\filter\filterset;
@@ -82,7 +82,7 @@ class overview extends sql_table implements dynamic, renderable {
         global $CFG, $OUTPUT;
 
         $this->strftimedaydatetime = get_string('strftimedaydatetime', 'langconfig');
-        $this->strindeterminate = get_string('indeterminate', 'block_completion_progress');
+        $this->strindeterminate = get_string('indeterminate', 'block_completion_progress_tgm');
         $this->strnever = get_string('never');
 
         $this->notesallowed = !empty($CFG->enablenotes) && has_capability('moodle/notes:manage', $this->context);
@@ -117,18 +117,18 @@ class overview extends sql_table implements dynamic, renderable {
             $tablecolumns[] = $field;
             $tableheaders[] = \core_user\fields::get_display_name($field);
         }
-        if (!in_array('lastaccess', $hiddenfields) && get_config('block_completion_progress', 'showlastincourse') != 0) {
+        if (!in_array('lastaccess', $hiddenfields) && get_config('block_completion_progress_tgm', 'showlastincourse') != 0) {
             $tablecolumns[] = 'timeaccess';
-            $tableheaders[] = get_string('lastonline', 'block_completion_progress');
+            $tableheaders[] = get_string('lastonline', 'block_completion_progress_tgm');
         }
 
         if (!$this->is_downloading()) {
             $tablecolumns[] = 'progressbar';
-            $tableheaders[] = get_string('progressbar', 'block_completion_progress');
+            $tableheaders[] = get_string('progressbar', 'block_completion_progress_tgm');
         }
 
         $tablecolumns[] = 'progress';
-        $tableheaders[] = get_string('progress', 'block_completion_progress');
+        $tableheaders[] = get_string('progress', 'block_completion_progress_tgm');
 
         $this->define_columns($tablecolumns);
         $this->define_headers($tableheaders);
@@ -166,7 +166,7 @@ class overview extends sql_table implements dynamic, renderable {
 
         $params += $userfields->params;
 
-        $showinactive = !!get_config('block_completion_progress', 'showinactive');
+        $showinactive = !!get_config('block_completion_progress_tgm', 'showinactive');
         $enroljoin = get_enrolled_with_capabilities_join($this->context, '', '', 0, !$showinactive);
         $params += $enroljoin->params;
 
@@ -288,7 +288,7 @@ class overview extends sql_table implements dynamic, renderable {
             "SELECT DISTINCT {$userfields->selects}, l.timeaccess, b.percentage AS progress, b.timemodified AS progressage
                 FROM {user} u {$enroljoin->joins} {$fjoins} {$userfields->joins}
                     LEFT JOIN {user_lastaccess} l ON l.userid = u.id AND l.courseid = :courseid
-                    LEFT JOIN {block_completion_progress} b ON b.userid = u.id AND b.blockinstanceid = :bi
+                    LEFT JOIN {block_completion_tgm} b ON b.userid = u.id AND b.blockinstanceid = :bi
                 WHERE {$enroljoin->wheres} AND {$twhere} AND ({$fwheres})
                 ORDER BY {$this->get_sql_sort()}",
             $params,
@@ -326,7 +326,7 @@ class overview extends sql_table implements dynamic, renderable {
             'checked' => false,
             'label' => get_string(
                 'selectitem',
-                'block_completion_progress',
+                'block_completion_progress_tgm',
                 fullname($row, has_capability('moodle/site:viewfullnames', $this->context))
             ),
             'labelclasses' => 'accesshide',
@@ -371,7 +371,7 @@ class overview extends sql_table implements dynamic, renderable {
         $clock = \core\di::get(\core\clock::class);
         $age = $clock->time() - (int)$row->progressage;
         if ($row->progressage !== null && $age > 0) {
-            $title = get_string('progresscachetime', 'block_completion_progress', \format_time($age));
+            $title = get_string('progresscachetime', 'block_completion_progress_tgm', \format_time($age));
             $value = \html_writer::span($value, '', ['title' => $title]);
         }
         return $value;
@@ -401,7 +401,7 @@ class overview extends sql_table implements dynamic, renderable {
      * @return bool
      */
     public function has_capability(): bool {
-        return has_capability('block/completion_progress:overview', $this->context);
+        return has_capability('block/completion_progress_tgm:overview', $this->context);
     }
 
     /**
@@ -416,7 +416,7 @@ class overview extends sql_table implements dynamic, renderable {
      * Give the base URL of the page.
      */
     public function guess_base_url(): void {
-        $this->baseurl = new \moodle_url('/blocks/completion_progress/overview.php', [
+        $this->baseurl = new \moodle_url('/blocks/completion_progress_tgm/overview.php', [
             'instanceid' => $this->blockinstanceid,
             'courseid' => $this->courseid,
         ]);
@@ -436,7 +436,7 @@ class overview extends sql_table implements dynamic, renderable {
                 'notesallowed' => $this->notesallowed,
                 'noteshelpicon' => (new \help_icon('publishstate', 'notes'))->export_for_template($OUTPUT),
             ];
-            echo $OUTPUT->render_from_template('block_completion_progress/overview_bulkactions', $actiondata);
+            echo $OUTPUT->render_from_template('block_completion_progress_tgm/overview_bulkactions', $actiondata);
         }
     }
 

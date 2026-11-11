@@ -17,26 +17,26 @@
 /**
  * Completion Progress block.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2018 Michael de Raadt
  * @copyright  2025 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace block_completion_progress\privacy;
+namespace block_completion_progress_tgm\privacy;
 
-use block_completion_progress\privacy\provider;
+use block_completion_progress_tgm\privacy\provider;
 use core_privacy\local\request\approved_userlist;
 use core_privacy\local\request\transform;
 use core_privacy\tests\provider_testcase;
 
 /**
- * Unit tests for block_completion_progress\privacy\provider
+ * Unit tests for block_completion_progress_tgm\privacy\provider
  *
  * @copyright  2018 Mihail Geshoski <mihail@moodle.com>
  * @copyright  2025 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
- * @covers \block_completion_progress\privacy\provider
+ * @covers \block_completion_progress_tgm\privacy\provider
  */
 final class provider_test extends provider_testcase {
     /**
@@ -76,9 +76,9 @@ final class provider_test extends provider_testcase {
 
         $writer = \core_privacy\local\request\writer::with_context($context);
         $this->assertFalse($writer->has_any_data());
-        $this->export_context_data_for_user($user->id, $context, 'block_completion_progress');
+        $this->export_context_data_for_user($user->id, $context, 'block_completion_progress_tgm');
 
-        $data = $writer->get_data([get_string('pluginname', 'block_completion_progress')]);
+        $data = $writer->get_data([get_string('pluginname', 'block_completion_progress_tgm')]);
         $this->assertCount(1, $data->percentages);
         $feed1 = reset($data->percentages);
         $this->assertEquals(1, $feed1->blockinstanceid);
@@ -90,7 +90,7 @@ final class provider_test extends provider_testcase {
      * Test that only users within a course context are fetched.
      */
     public function test_get_users_in_context(): void {
-        $component = 'block_completion_progress';
+        $component = 'block_completion_progress_tgm';
 
         // Create a user.
         $user = $this->getDataGenerator()->create_user();
@@ -121,7 +121,7 @@ final class provider_test extends provider_testcase {
      * Test that data for users in approved userlist is deleted.
      */
     public function test_delete_data_for_users(): void {
-        $component = 'block_completion_progress';
+        $component = 'block_completion_progress_tgm';
 
         $user1 = $this->getDataGenerator()->create_user();
         $usercontext1 = \context_user::instance($user1->id);
@@ -188,13 +188,13 @@ final class provider_test extends provider_testcase {
         $this->add_percentage_record($user, $course);
 
         // Check that we have an entry.
-        $percentages = $DB->get_records('block_completion_progress', ['userid' => $user->id]);
+        $percentages = $DB->get_records('block_completion_tgm', ['userid' => $user->id]);
         $this->assertCount(1, $percentages);
 
         provider::delete_data_for_all_users_in_context($context);
 
         // Check that it has now been deleted.
-        $percentages = $DB->get_records('block_completion_progress', ['userid' => $user->id]);
+        $percentages = $DB->get_records('block_completion_tgm', ['userid' => $user->id]);
         $this->assertCount(0, $percentages);
     }
 
@@ -211,18 +211,18 @@ final class provider_test extends provider_testcase {
         $this->add_percentage_record($user, $course);
 
         // Check that we have an entry.
-        $percentages = $DB->get_records('block_completion_progress', ['userid' => $user->id]);
+        $percentages = $DB->get_records('block_completion_tgm', ['userid' => $user->id]);
         $this->assertCount(1, $percentages);
 
         $approvedlist = new \core_privacy\local\request\approved_contextlist(
             $user,
-            'block_completion_progress',
+            'block_completion_progress_tgm',
             [$context->id]
         );
         provider::delete_data_for_user($approvedlist);
 
         // Check that it has now been deleted.
-        $percentages = $DB->get_records('block_completion_progress', ['userid' => $user->id]);
+        $percentages = $DB->get_records('block_completion_tgm', ['userid' => $user->id]);
         $this->assertCount(0, $percentages);
     }
 
@@ -243,6 +243,6 @@ final class provider_test extends provider_testcase {
             'timemodified' => 1759968967,
         ];
 
-        $DB->insert_record('block_completion_progress', $pctdata);
+        $DB->insert_record('block_completion_tgm', $pctdata);
     }
 }

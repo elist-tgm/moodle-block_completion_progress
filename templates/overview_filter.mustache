@@ -15,11 +15,11 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-  @template block_completion_progress/overview_filter
+  @template block_completion_progress_tgm/overview_filter
 
   Example context (json):
   {
-    "tableregionid": "block_completion_progress-overview-181",
+    "tableregionid": "block_completion_progress_tgm-overview-181",
     "courseid": 32,
     "initialfilters": {
         "jointype": 2,
@@ -46,7 +46,7 @@
 </form>
 
 {{#js}}
-    require(['block_completion_progress/overview_filter'], function(Filter) {
+    require(['block_completion_progress_tgm/overview_filter'], function(Filter) {
         Filter.init({{#quote}}core-filter-{{uniqid}}{{/quote}}, {{{initialfilters}}});
     });
 {{/js}}

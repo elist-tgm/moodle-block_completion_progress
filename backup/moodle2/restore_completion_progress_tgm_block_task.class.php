@@ -17,7 +17,7 @@
 /**
  * Restore task for the Completion Progress block
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2016 Michael de Raadt
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,11 +25,11 @@
 /**
  * Restore task for the Completion Progress block
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2016 Michael de Raadt
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class restore_completion_progress_block_task extends restore_block_task {
+class restore_completion_progress_tgm_block_task extends restore_block_task {
     /**
      * Translates the backed up configuration data for the target course modules.
      */

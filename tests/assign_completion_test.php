@@ -17,12 +17,12 @@
 /**
  * Assignment activity-related unit tests for Completion Progress block.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2020 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace block_completion_progress;
+namespace block_completion_progress_tgm;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -30,25 +30,25 @@ global $CFG;
 require_once($CFG->dirroot . '/mod/assign/locallib.php');
 require_once($CFG->dirroot . '/mod/assign/tests/fixtures/testable_assign.php');
 
-use block_completion_progress\completion_progress;
-use block_completion_progress\defaults;
+use block_completion_progress_tgm\completion_progress;
+use block_completion_progress_tgm\defaults;
 
 /**
  * Assignment activity-related unit tests for Completion Progress block.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2020 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-final class assign_completion_test extends \block_completion_progress\tests\completion_testcase {
+final class assign_completion_test extends \block_completion_progress_tgm\tests\completion_testcase {
     /**
      * Test assignment completion state changes.
-     * @covers \block_completion_progress\completion_progress
+     * @covers \block_completion_progress_tgm\completion_progress
      */
     public function test_assign_get_completion_state(): void {
         global $PAGE;
 
-        $output = $PAGE->get_renderer('block_completion_progress');
+        $output = $PAGE->get_renderer('block_completion_progress_tgm');
         $generator = $this->getDataGenerator();
 
         $instance = $generator->create_module('assign', [
@@ -113,7 +113,7 @@ final class assign_completion_test extends \block_completion_progress\tests\comp
 
     /**
      * Test completion determination in an Assignment activity with pass/fail enabled.
-     * @covers \block_completion_progress\completion_progress
+     * @covers \block_completion_progress_tgm\completion_progress
      */
     public function test_assign_passfail(): void {
         $generator = $this->getDataGenerator();
@@ -172,7 +172,7 @@ final class assign_completion_test extends \block_completion_progress\tests\comp
 
     /**
      * Test completion determination in an Assignment activity with basic completion.
-     * @covers \block_completion_progress\completion_progress
+     * @covers \block_completion_progress_tgm\completion_progress
      */
     public function test_assign_basic(): void {
         $generator = $this->getDataGenerator();
@@ -234,7 +234,7 @@ final class assign_completion_test extends \block_completion_progress\tests\comp
      *
      * @param integer $requireallteammemberssubmit
      *
-     * @covers \block_completion_progress\completion_progress
+     * @covers \block_completion_progress_tgm\completion_progress
      * @dataProvider teamsubmission_provider
      */
     public function test_teamsubmission($requireallteammemberssubmit): void {

@@ -17,12 +17,12 @@
 /**
  * Quiz activity-related unit tests for Completion Progress block.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2020 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace block_completion_progress;
+namespace block_completion_progress_tgm;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -30,8 +30,8 @@ global $CFG;
 require_once($CFG->dirroot . '/mod/quiz/lib.php');
 require_once($CFG->dirroot . '/mod/quiz/locallib.php');
 
-use block_completion_progress\completion_progress;
-use block_completion_progress\defaults;
+use block_completion_progress_tgm\completion_progress;
+use block_completion_progress_tgm\defaults;
 
 if (!class_exists('mod_quiz\quiz_settings')) {
     // Moodle 4.1 or earlier.
@@ -42,11 +42,11 @@ if (!class_exists('mod_quiz\quiz_settings')) {
 /**
  * Quiz activity-related unit tests for Completion Progress block.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2020 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-final class quiz_completion_test extends \block_completion_progress\tests\completion_testcase {
+final class quiz_completion_test extends \block_completion_progress_tgm\tests\completion_testcase {
     /**
      * A data provider supplying each of the possible quiz grade methods.
      * @return array
@@ -66,7 +66,7 @@ final class quiz_completion_test extends \block_completion_progress\tests\comple
      *
      * @param integer $grademethod
      *
-     * @covers \block_completion_progress\completion_progress
+     * @covers \block_completion_progress_tgm\completion_progress
      * @dataProvider grademethod_provider
      */
     public function test_quiz_passfail($grademethod): void {
@@ -149,7 +149,7 @@ final class quiz_completion_test extends \block_completion_progress\tests\comple
      *
      * @param integer $grademethod
      *
-     * @covers \block_completion_progress\completion_progress
+     * @covers \block_completion_progress_tgm\completion_progress
      * @dataProvider grademethod_provider
      */
     public function test_quiz_basic($grademethod): void {

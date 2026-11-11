@@ -16,7 +16,7 @@
 /**
  * Block instance ID filter.
  *
- * @module     block_completion_progress/datafilter/filtertypes/blockinstanceid
+ * @module     block_completion_progress_tgm/datafilter/filtertypes/blockinstanceid
  * @copyright  2020 Andrew Nicols <andrew@nicols.co.uk>
  * @copyright  2026 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

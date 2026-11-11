@@ -16,7 +16,7 @@
 /**
  * Completion Progress block progress bar behaviour.
  *
- * @module     block_completion_progress/progressbar
+ * @module     block_completion_progress_tgm/progressbar
  * @copyright  2020 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -28,7 +28,7 @@ define(['jquery', 'core/ajax', 'core/log', 'core/templates', 'core/utils'],
          */
         function showInfo(event) {
             var cell = $(this);
-            var container = cell.closest('.block_completion_progress .barContainer');
+            var container = cell.closest('.block_completion_progress_tgm .barContainer');
             var visibleinfo = container.siblings('.progressEventInfo:visible');
             var infotoshow = container.siblings('.progressEventInfo[data-inforef=' + cell.data('inforef') + ']');
 
@@ -58,7 +58,7 @@ define(['jquery', 'core/ajax', 'core/log', 'core/templates', 'core/utils'],
          */
         function viewActivity() {
             var cell = $(this);
-            var container = cell.closest('.block_completion_progress .barContainer');
+            var container = cell.closest('.block_completion_progress_tgm .barContainer');
             var infotoshow = container.siblings('.progressEventInfo[data-inforef=' + cell.data('inforef') + ']');
             var infolink = infotoshow.find('a').first();
             if (infolink.prop('onclick') !== null) {
@@ -73,7 +73,7 @@ define(['jquery', 'core/ajax', 'core/log', 'core/templates', 'core/utils'],
          * @param {Event} event
          */
         function scrollContainer(event) {
-            var barrow = $(this).closest('.block_completion_progress .barContainer').find('.barRow');
+            var barrow = $(this).closest('.block_completion_progress_tgm .barContainer').find('.barRow');
             var amount = event.data * barrow.prop('scrollWidth') * 0.15;
 
             barrow.prop('scrollLeft', barrow.prop('scrollLeft') + amount);
@@ -86,7 +86,7 @@ define(['jquery', 'core/ajax', 'core/log', 'core/templates', 'core/utils'],
          */
         function checkArrows() {
             var barrow = $(this);
-            var barcontainer = barrow.closest('.block_completion_progress .barContainer');
+            var barcontainer = barrow.closest('.block_completion_progress_tgm .barContainer');
             var leftarrow = barcontainer.find('.left-arrow-svg');
             var rightarrow = barcontainer.find('.right-arrow-svg');
             var scrolled = barrow.prop('scrollLeft');
@@ -129,12 +129,12 @@ define(['jquery', 'core/ajax', 'core/log', 'core/templates', 'core/utils'],
             if (typeof barel !== 'undefined') {
                 barrows = barel.find('.barRow');
             } else {
-                barrows = $('.block_completion_progress .barRow');
+                barrows = $('.block_completion_progress_tgm .barRow');
             }
             var nowicons = barrows.find('.nowDiv .icon');
             nowicons.each(function() {
                 var nowicon = $(this);
-                var barrow = nowicon.closest('.block_completion_progress .barRow');
+                var barrow = nowicon.closest('.block_completion_progress_tgm .barRow');
 
                 barrow.prop('scrollLeft', 0);
                 barrow.prop('scrollLeft', nowicon.offset().left - barrow.offset().left -
@@ -148,34 +148,34 @@ define(['jquery', 'core/ajax', 'core/log', 'core/templates', 'core/utils'],
          * @param {String} cmid
          */
         function rerenderBlocksWithCmid(cmid) {
-            var blocks = $('.block.block_completion_progress:has(.progressBarCell[data-inforef$="-' + cmid + '"])');
+            var blocks = $('.block.block_completion_progress_tgm:has(.progressBarCell[data-inforef$="-' + cmid + '"])');
             blocks.each(function() {
                 let block = $(this);
-                let blockcontent = block.find('div.block_completion_progress');
+                let blockcontent = block.find('div.block_completion_progress_tgm');
                 let barcontainer = block.find('.barContainer');
                 let courseid = barcontainer.data('courseid');
                 let instanceid = barcontainer.data('instanceid');
                 let userid = barcontainer.data('userid');
 
-                Log.debug(`block_completion_progress: reloading course ${courseid} blockinstance ${instanceid} user ${userid}`);
+                Log.debug(`block_completion_progress_tgm: reloading course ${courseid} blockinstance ${instanceid} user ${userid}`);
                 Ajax.call(
                     [{
-                        methodname: 'block_completion_progress_get_blockinstance_data',
+                        methodname: 'block_completion_progress_tgm_get_blockinstance_data',
                         args: {
                             courseid,
                             instanceid,
                             userid,
                         },
                         done: function(response) {
-                            Templates.render('block_completion_progress/completion_progress', response)
+                            Templates.render('block_completion_progress_tgm/completion_progress', response)
                                 .done(function(html, js) {
                                     let newcontent = Templates.replaceNode(blockcontent, html, js);
                                     positionNow($(newcontent[0]));
                                 })
-                                .fail(ex => Log.debug('block_completion_progress: error rendering template to reload ' +
+                                .fail(ex => Log.debug('block_completion_progress_tgm: error rendering template to reload ' +
                                     `course ${courseid} blockinstance ${instanceid} user ${userid} -- ${ex.errorcode}`));
                         },
-                        fail: ex => Log.debug('block_completion_progress: error making ajax call to reload ' +
+                        fail: ex => Log.debug('block_completion_progress_tgm: error making ajax call to reload ' +
                             `course ${courseid} blockinstance ${instanceid} user ${userid} -- ${ex.errorcode}`),
                     }],
                     true, true, true
@@ -188,30 +188,30 @@ define(['jquery', 'core/ajax', 'core/log', 'core/templates', 'core/utils'],
          */
         function init() {
             // Show information elements on hover or tap.
-            $(document.body).on('touchstart mouseover', '.block_completion_progress .progressBarCell', showInfo);
+            $(document.body).on('touchstart mouseover', '.block_completion_progress_tgm .progressBarCell', showInfo);
 
             // Navigate to the activity when its cell is clicked.
-            $(document.body).on('click', '.block_completion_progress .progressBarCell[data-haslink=true]', viewActivity);
+            $(document.body).on('click', '.block_completion_progress_tgm .progressBarCell[data-haslink=true]', viewActivity);
 
             // Show all information elements when the 'show all' link is clicked.
-            $(document.body).on('click', '.block_completion_progress .progressShowAllInfo', showAllInfo);
+            $(document.body).on('click', '.block_completion_progress_tgm .progressShowAllInfo', showAllInfo);
 
             // Handle the presentation of scroll arrows when in scroll mode.
             document.addEventListener('scroll', function(e) {
-                if (e.target.matches && e.target.matches('.block_completion_progress .barRow')) {
+                if (e.target.matches && e.target.matches('.block_completion_progress_tgm .barRow')) {
                     checkArrows.call(e.target);
                 }
             }, true);
-            $(document.body).on('click', '.block_completion_progress .left-arrow-svg', -1, scrollContainer);
-            $(document.body).on('click', '.block_completion_progress .right-arrow-svg', 1, scrollContainer);
-            $(window).resize(() => $('.block_completion_progress .barRow').each(checkArrows));
+            $(document.body).on('click', '.block_completion_progress_tgm .left-arrow-svg', -1, scrollContainer);
+            $(document.body).on('click', '.block_completion_progress_tgm .right-arrow-svg', 1, scrollContainer);
+            $(window).resize(() => $('.block_completion_progress_tgm .barRow').each(checkArrows));
             $(document).on('theme_boost/drawers:shown theme_boost/drawers:hidden',
-                Utils.debounce(() => $('.block_completion_progress .barRow').each(checkArrows), 250));
+                Utils.debounce(() => $('.block_completion_progress_tgm .barRow').each(checkArrows), 250));
 
             // Handle the 'now' marker on page load and if a dynamic table updates.
             $(document).on('core_table/dynamic:tableContentRefreshed', function(e) {
                 if (e.target.matches && e.target.matches('.table-dynamic[data-table-handler="overview"]' +
-                        '[data-table-component="block_completion_progress"]')) {
+                        '[data-table-component="block_completion_progress_tgm"]')) {
                     positionNow();
                 }
             });
@@ -221,7 +221,7 @@ define(['jquery', 'core/ajax', 'core/log', 'core/templates', 'core/utils'],
             $(document).on('core_course:manualcompletiontoggled', e => rerenderBlocksWithCmid(e.target.dataset.cmid));
         }
 
-        return /** @alias module:block_completion_progress/progressbar */ {
+        return /** @alias module:block_completion_progress_tgm/progressbar */ {
             init: init
         };
     });

@@ -16,7 +16,7 @@
 /**
  * Completion Progress overview page behaviour.
  *
- * @module     block_completion_progress/overview
+ * @module     block_completion_progress_tgm/overview
  * @copyright  2020 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -26,7 +26,7 @@ import Pending from 'core/pending';
 import * as PubSub from 'core/pubsub';
 import {showAddNote, showSendMessage} from 'core_user/local/participants/bulkactions';
 
-const tablesel = '.table-dynamic[data-table-component="block_completion_progress"]' +
+const tablesel = '.table-dynamic[data-table-component="block_completion_progress_tgm"]' +
         '[data-table-handler="overview"]';
 
 export const init = (courseid, noteStateNames) => {
@@ -49,7 +49,7 @@ export const init = (courseid, noteStateNames) => {
 
     // Listen for togglegroup checkboxes changing state and enable/disable bulk action buttons.
     PubSub.subscribe('core/checkbox-toggleall:checkboxToggled', function(e) {
-        var buttons = document.querySelectorAll('[data-table-component="block_completion_progress"] .bulkactions button');
+        var buttons = document.querySelectorAll('[data-table-component="block_completion_progress_tgm"] .bulkactions button');
         buttons.forEach(n => void (n.disabled = !e.anyChecked));
     });
 

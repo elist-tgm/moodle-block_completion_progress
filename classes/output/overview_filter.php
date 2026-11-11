@@ -17,13 +17,13 @@
 /**
  * Completion Progress block.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2020 Michael Hawkins <michaelh@moodle.com>
  * @copyright  2026 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace block_completion_progress\output;
+namespace block_completion_progress_tgm\output;
 
 use core\context;
 use renderer_base;

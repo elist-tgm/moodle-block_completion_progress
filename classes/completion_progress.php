@@ -17,13 +17,13 @@
 /**
  * Completion Progress block.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2016 Michael de Raadt
  * @copyright  2021 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace block_completion_progress;
+namespace block_completion_progress_tgm;
 
 use stdClass;
 use completion_info;
@@ -33,7 +33,7 @@ use coding_exception;
 /**
  * Completion Progress.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2016 Michael de Raadt
  * @copyright  2021 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -222,7 +222,7 @@ class completion_progress implements \renderable, \templatable {
 
         $numdone = 0;
         $numcompletions = count($this->completions);
-        $cachetime = get_config('block_completion_progress', 'overviewcachetime') ?: defaults::OVERVIEWCACHETIME;
+        $cachetime = get_config('block_completion_progress_tgm', 'overviewcachetime') ?: defaults::OVERVIEWCACHETIME;
         foreach ($this->completions as $userid => $completions) {
             $trans = $DB->start_delegated_transaction();
             $rec = [
@@ -230,7 +230,7 @@ class completion_progress implements \renderable, \templatable {
                 'courseid' => $this->course->id,
                 'userid' => $userid,
             ];
-            $rec = $DB->get_record('block_completion_progress', $rec) ?: (object)$rec;
+            $rec = $DB->get_record('block_completion_tgm', $rec) ?: (object)$rec;
 
             if (!empty($rec->timemodified) && $clock->time() - $rec->timemodified < $cachetime) {
                 $trans->allow_commit();
@@ -259,9 +259,9 @@ class completion_progress implements \renderable, \templatable {
             $rec->timemodified = $clock->time();
 
             if (empty($rec->id)) {
-                $rec->id = $DB->insert_record('block_completion_progress', $rec);
+                $rec->id = $DB->insert_record('block_completion_tgm', $rec);
             } else {
-                $DB->update_record('block_completion_progress', $rec);
+                $DB->update_record('block_completion_tgm', $rec);
             }
             $trans->allow_commit();
 
@@ -963,11 +963,11 @@ class completion_progress implements \renderable, \templatable {
         $greymode = $this->is_unavailable_grey_mode();
 
         // Get relevant block instance settings or use defaults.
-        $useicons = get_config('block_completion_progress', 'forceiconsinbar') ?:
+        $useicons = get_config('block_completion_progress_tgm', 'forceiconsinbar') ?:
             ($config->progressBarIcons ?? defaults::PROGRESSBARICONS);
         $orderby = $config->orderby ?? defaults::ORDERBY;
         $longbars = $config->longbars ??
-            (get_config('block_completion_progress', 'defaultlongbars') ?: defaults::LONGBARS);
+            (get_config('block_completion_progress_tgm', 'defaultlongbars') ?: defaults::LONGBARS);
         $displaynow = $orderby == self::ORDERBY_TIME;
         $showpercentage = $config->showpercentage ?? defaults::SHOWPERCENTAGE;
 
@@ -1002,7 +1002,7 @@ class completion_progress implements \renderable, \templatable {
             return $data;
         }
 
-        $wrapafter = max(1, get_config('block_completion_progress', 'wrapafter') ?: defaults::WRAPAFTER);
+        $wrapafter = max(1, get_config('block_completion_progress_tgm', 'wrapafter') ?: defaults::WRAPAFTER);
         if ($longbars == 'wrap' && $numactivities > $wrapafter) {
             $data->barwrap = true;
             $data->cellsperrow = ceil($numactivities / max(1, ceil($numactivities / $wrapafter)));

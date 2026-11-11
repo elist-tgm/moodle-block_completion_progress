@@ -17,24 +17,24 @@
 /**
  * Completion Progress block renderer.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2016 Michael de Raadt
  * @copyright  2020 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace block_completion_progress\output;
+namespace block_completion_progress_tgm\output;
 
-use block_completion_progress\completion_progress;
-use block_completion_progress\defaults;
-use block_completion_progress\table\overview;
+use block_completion_progress_tgm\completion_progress;
+use block_completion_progress_tgm\defaults;
+use block_completion_progress_tgm\table\overview;
 use plugin_renderer_base;
 use html_writer;
 
 /**
  * Completion Progress block renderer.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2020 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -46,14 +46,14 @@ class renderer extends plugin_renderer_base {
      */
     public function render_completion_progress(completion_progress $progress) {
         return $this->render_from_template(
-            'block_completion_progress/completion_progress',
+            'block_completion_progress_tgm/completion_progress',
             $progress->export_for_template($this)
         );
     }
 
     /**
      * Render the overview table.
-     * @param block_completion_progress\table\overview $table
+     * @param block_completion_progress_tgm\table\overview $table
      * @return string
      */
     public function render_overview(overview $table): string {

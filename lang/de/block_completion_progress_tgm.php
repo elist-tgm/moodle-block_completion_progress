@@ -17,18 +17,20 @@
 /**
  * German strings for the local extensions (all other strings come from the AMOS language pack).
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['config_default_title'] = 'Fortschrittsbalken (TGM)';
 $string['config_showunavailable'] = '(Noch) nicht erreichbare Aktivitäten';
 $string['config_showunavailable_help'] = '<p>Aktivitäten können für Teilnehmer/innen (noch) nicht erreichbar sein, z.B. weil eine Voraussetzung (Aktivitätsabschluss, Datum, Bewertung, ...) nicht erfüllt ist.</p><ul><li><b>Als graue Felder anzeigen</b>: Jede solche Aktivität erscheint als graues Feld, auch wenn sie durch die Voraussetzung auf der Kursseite vollständig verborgen ist. Alle sehen einen gleich langen Balken, der Prozentwert bezieht sich auf alle Aktivitäten.</li><li><b>Ursprüngliches Verhalten</b>: Vollständig verborgene Aktivitäten werden weggelassen, ausgegraute in den normalen Farben angezeigt.</li></ul><p>Von Lehrenden verborgene Aktivitäten werden nie angezeigt.</p>';
 $string['config_unavailable_grey'] = 'Als graue Felder anzeigen';
 $string['config_unavailable_hide'] = 'Ursprüngliches Verhalten (verborgene weglassen)';
 $string['config_unavailableskipgroups'] = 'Aktivitäten für andere Gruppen weglassen';
 $string['config_unavailableskipgroups_help'] = '<p>Wenn aktiviert, wird eine nicht erreichbare Aktivität weggelassen, wenn sie (über eine verpflichtende UND-Bedingung) auf eine Gruppe oder Gruppierung eingeschränkt ist, der die Person nicht angehört. Solche Aktivitäten sind für andere bestimmt und gehören nicht zum Arbeitsumfang.</p>';
+$string['pluginname'] = 'Fortschrittsbalken (TGM)';
 $string['unavailable'] = 'Noch nicht verfügbar';
 $string['unavailable_colour'] = '#B0B0B0';
 $string['unavailable_colour_descr'] = 'HTML-Farbcode für Elemente, die (noch) nicht erreichbar sind';

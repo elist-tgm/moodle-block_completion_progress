@@ -17,13 +17,13 @@
 /**
  * Completion Progress block overview table.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2016 Michael de Raadt
  * @copyright  2026 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace block_completion_progress\table;
+namespace block_completion_progress_tgm\table;
 
 use core_table\local\filter\filterset;
 use core_table\local\filter\integer_filter;

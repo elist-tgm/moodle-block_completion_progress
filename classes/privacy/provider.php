@@ -17,13 +17,13 @@
 /**
  * Completion Progress block.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2018 Michael de Raadt
  * @copyright  2025 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace block_completion_progress\privacy;
+namespace block_completion_progress_tgm\privacy;
 
 use core_privacy\local\metadata\collection;
 use core_privacy\local\request\approved_contextlist;
@@ -35,7 +35,7 @@ use core_privacy\local\request\userlist;
 /**
  * Privacy class for requesting user data.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2018 Mihail Geshoski <mihail@moodle.com>
  * @copyright  2025 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -52,13 +52,13 @@ class provider implements
      * @return  collection A listing of user data stored through this system.
      */
     public static function get_metadata(collection $collection): collection {
-        $collection->add_database_table('block_completion_progress', [
-            'courseid' => 'privacy:metadata:block_completion_progress:courseid',
-            'blockinstanceid' => 'privacy:metadata:block_completion_progress:blockinstanceid',
-            'userid' => 'privacy:metadata:block_completion_progress:userid',
-            'percentage' => 'privacy:metadata:block_completion_progress:percentage',
-            'timemodified' => 'privacy:metadata:block_completion_progress:timemodified',
-        ], 'privacy:metadata:block_completion_progress:tableexplanation');
+        $collection->add_database_table('block_completion_tgm', [
+            'courseid' => 'privacy:metadata:block_completion_progress_tgm:courseid',
+            'blockinstanceid' => 'privacy:metadata:block_completion_progress_tgm:blockinstanceid',
+            'userid' => 'privacy:metadata:block_completion_progress_tgm:userid',
+            'percentage' => 'privacy:metadata:block_completion_progress_tgm:percentage',
+            'timemodified' => 'privacy:metadata:block_completion_progress_tgm:timemodified',
+        ], 'privacy:metadata:block_completion_progress_tgm:tableexplanation');
         return $collection;
     }
 
@@ -70,7 +70,7 @@ class provider implements
      */
     public static function get_contexts_for_userid(int $userid): contextlist {
         $sql = "SELECT ctx.id
-                FROM {block_completion_progress} b
+                FROM {block_completion_tgm} b
                 JOIN {user} u
                     ON b.userid = u.id
                 JOIN {context} ctx
@@ -98,7 +98,7 @@ class provider implements
         }
 
         $sql = "SELECT userid
-                  FROM {block_completion_progress}
+                  FROM {block_completion_tgm}
                  WHERE userid = ?";
         $params = [$context->instanceid];
         $userlist->add_from_sql('userid', $sql, $params);
@@ -126,7 +126,7 @@ class provider implements
                 'percentages' => $pctdata,
             ];
             \core_privacy\local\request\writer::with_context($contextlist->current())->export_data(
-                [get_string('pluginname', 'block_completion_progress')],
+                [get_string('pluginname', 'block_completion_progress_tgm')],
                 $data
             );
         }
@@ -173,7 +173,7 @@ class provider implements
     protected static function delete_data($userid) {
         global $DB;
 
-        $DB->delete_records('block_completion_progress', ['userid' => $userid]);
+        $DB->delete_records('block_completion_tgm', ['userid' => $userid]);
     }
 
     /**
@@ -185,6 +185,6 @@ class provider implements
     protected static function get_records($userid) {
         global $DB;
 
-        return $DB->get_records('block_completion_progress', ['userid' => $userid]);
+        return $DB->get_records('block_completion_tgm', ['userid' => $userid]);
     }
 }

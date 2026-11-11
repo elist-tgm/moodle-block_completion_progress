@@ -17,7 +17,7 @@
 /**
  * Completion Progress block event observers
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2025 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -27,18 +27,18 @@ defined('MOODLE_INTERNAL') || die;
 $observers = [
     [
         'eventname'   => '\core\event\course_module_completion_updated',
-        'callback'    => 'block_completion_progress\observer::course_module_completion_updated',
+        'callback'    => 'block_completion_progress_tgm\observer::course_module_completion_updated',
     ],
     [
         'eventname'   => '\core\event\course_module_created',
-        'callback'    => 'block_completion_progress\observer::course_module_modified',
+        'callback'    => 'block_completion_progress_tgm\observer::course_module_modified',
     ],
     [
         'eventname'   => '\core\event\course_module_deleted',
-        'callback'    => 'block_completion_progress\observer::course_module_modified',
+        'callback'    => 'block_completion_progress_tgm\observer::course_module_modified',
     ],
     [
         'eventname'   => '\core\event\course_module_updated',
-        'callback'    => 'block_completion_progress\observer::course_module_modified',
+        'callback'    => 'block_completion_progress_tgm\observer::course_module_modified',
     ],
 ];

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="blocks/completion_progress/db" VERSION="20250902" COMMENT="XMLDB file for Moodle blocks/completion_progress"
+<XMLDB PATH="blocks/completion_progress_tgm/db" VERSION="20250902" COMMENT="XMLDB file for Moodle blocks/completion_progress_tgm"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
-    <TABLE NAME="block_completion_progress" COMMENT="Cached completion scores">
+    <TABLE NAME="block_completion_tgm" COMMENT="Cached completion scores">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>

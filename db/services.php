@@ -17,7 +17,7 @@
 /**
  * Completion Progress block external services.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2026 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,12 +25,12 @@
 defined('MOODLE_INTERNAL') || die();
 
 $functions = [
-    'block_completion_progress_get_blockinstance_data' => [
-        'classname'     => 'block_completion_progress\external\get_blockinstance_data',
+    'block_completion_progress_tgm_get_blockinstance_data' => [
+        'classname'     => 'block_completion_progress_tgm\external\get_blockinstance_data',
         'methodname'    => 'execute',
         'description'   => 'Gets the data for rendering a progress bar.',
         'type'          => 'read',
         'ajax'          => true,
-        'capabilities'  => 'block/completion_progress:showbar',
+        'capabilities'  => 'block/completion_progress_tgm:showbar',
     ],
 ];

@@ -17,12 +17,12 @@
 /**
  * Workshop activity-related unit tests for Completion Progress block.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2020 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace block_completion_progress;
+namespace block_completion_progress_tgm;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -30,20 +30,20 @@ global $CFG;
 require_once($CFG->dirroot . '/mod/workshop/locallib.php');
 require_once($CFG->dirroot . '/mod/workshop/tests/fixtures/testable.php');
 
-use block_completion_progress\completion_progress;
-use block_completion_progress\defaults;
+use block_completion_progress_tgm\completion_progress;
+use block_completion_progress_tgm\defaults;
 
 /**
  * Workshop activity-related unit tests for Completion Progress block.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2020 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-final class workshop_completion_test extends \block_completion_progress\tests\completion_testcase {
+final class workshop_completion_test extends \block_completion_progress_tgm\tests\completion_testcase {
     /**
      * Test completion determination in a Workshop activity with pass/fail enabled.
-     * @covers \block_completion_progress\completion_progress
+     * @covers \block_completion_progress_tgm\completion_progress
      */
     public function test_workshop_passfail(): void {
         $this->setAdminUser();
@@ -97,7 +97,7 @@ final class workshop_completion_test extends \block_completion_progress\tests\co
 
     /**
      * Test completion determination in an Workshop activity with basic completion.
-     * @covers \block_completion_progress\completion_progress
+     * @covers \block_completion_progress_tgm\completion_progress
      */
     public function test_workshop_basic(): void {
         $this->setAdminUser();

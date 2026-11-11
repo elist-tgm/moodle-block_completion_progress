@@ -15,31 +15,31 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Overview table unit tests for block_completion_progress.
+ * Overview table unit tests for block_completion_progress_tgm.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2021 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace block_completion_progress;
+namespace block_completion_progress_tgm;
 
 defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
 require_once($CFG->dirroot . '/mod/assign/locallib.php');
 require_once($CFG->dirroot . '/blocks/moodleblock.class.php');
-require_once($CFG->dirroot . '/blocks/completion_progress/block_completion_progress.php');
+require_once($CFG->dirroot . '/blocks/completion_progress_tgm/block_completion_progress_tgm.php');
 
 use core_table\local\filter\filter;
 use core_table\local\filter\integer_filter;
-use block_completion_progress\completion_progress;
-use block_completion_progress\defaults;
+use block_completion_progress_tgm\completion_progress;
+use block_completion_progress_tgm\defaults;
 
 /**
- * Overview table unit tests for block_completion_progress.
+ * Overview table unit tests for block_completion_progress_tgm.
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2021 Jonathon Fowler <fowlerj@usq.edu.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -133,7 +133,7 @@ final class overview_test extends \advanced_testcase {
 
     /**
      * Test optional settings' effects on the overview table.
-     * @covers \block_completion_progress\table\overview
+     * @covers \block_completion_progress_tgm\table\overview
      */
     public function test_overview_options(): void {
         global $PAGE;
@@ -157,7 +157,7 @@ final class overview_test extends \advanced_testcase {
                 'activitiesincluded' => defaults::ACTIVITIESINCLUDED,
             ])),
         ];
-        $blockinstance = $this->getDataGenerator()->create_block('completion_progress', $blockinfo);
+        $blockinstance = $this->getDataGenerator()->create_block('completion_progress_tgm', $blockinfo);
 
         $this->create_assign_instance([
           'submissiondrafts' => 0,
@@ -168,11 +168,11 @@ final class overview_test extends \advanced_testcase {
         $PAGE->set_url('/');
 
         // Test inactive student is hidden and 'last in course' column is hidden.
-        set_config('showinactive', 0, 'block_completion_progress');
-        set_config('showlastincourse', 0, 'block_completion_progress');
-        set_config('forceiconsinbar', 0, 'block_completion_progress');
-        $table = new \block_completion_progress\table\overview('block_completion_progress-overview-' . $blockinstance->id);
-        $filterset = new \block_completion_progress\table\overview_filterset();
+        set_config('showinactive', 0, 'block_completion_progress_tgm');
+        set_config('showlastincourse', 0, 'block_completion_progress_tgm');
+        set_config('forceiconsinbar', 0, 'block_completion_progress_tgm');
+        $table = new \block_completion_progress_tgm\table\overview('block_completion_progress_tgm-overview-' . $blockinstance->id);
+        $filterset = new \block_completion_progress_tgm\table\overview_filterset();
         $filterset->add_filter(new integer_filter('courseid', filter::JOINTYPE_DEFAULT, [(int)$this->course->id]));
         $filterset->add_filter(new integer_filter('blockinstanceid', filter::JOINTYPE_DEFAULT, [(int)$blockinstance->id]));
         $table->set_filterset($filterset);
@@ -187,11 +187,11 @@ final class overview_test extends \advanced_testcase {
         $this->assertStringNotContainsString('barWithIcons', $text);
 
         // Test inactive student is visible and 'last in course' column is shown.
-        set_config('showinactive', 1, 'block_completion_progress');
-        set_config('showlastincourse', 1, 'block_completion_progress');
-        set_config('forceiconsinbar', 1, 'block_completion_progress');
-        $table = new \block_completion_progress\table\overview('block_completion_progress-overview-' . $blockinstance->id);
-        $filterset = new \block_completion_progress\table\overview_filterset();
+        set_config('showinactive', 1, 'block_completion_progress_tgm');
+        set_config('showlastincourse', 1, 'block_completion_progress_tgm');
+        set_config('forceiconsinbar', 1, 'block_completion_progress_tgm');
+        $table = new \block_completion_progress_tgm\table\overview('block_completion_progress_tgm-overview-' . $blockinstance->id);
+        $filterset = new \block_completion_progress_tgm\table\overview_filterset();
         $filterset->add_filter(new integer_filter('courseid', filter::JOINTYPE_DEFAULT, [(int)$this->course->id]));
         $filterset->add_filter(new integer_filter('blockinstanceid', filter::JOINTYPE_DEFAULT, [(int)$blockinstance->id]));
         $table->set_filterset($filterset);
@@ -206,8 +206,8 @@ final class overview_test extends \advanced_testcase {
         $this->assertStringContainsString('barWithIcons', $text);
 
         // Test that group filtering works.
-        $table = new \block_completion_progress\table\overview('block_completion_progress-overview-' . $blockinstance->id);
-        $filterset = new \block_completion_progress\table\overview_filterset();
+        $table = new \block_completion_progress_tgm\table\overview('block_completion_progress_tgm-overview-' . $blockinstance->id);
+        $filterset = new \block_completion_progress_tgm\table\overview_filterset();
         $filterset->add_filter(new integer_filter('courseid', filter::JOINTYPE_DEFAULT, [(int)$this->course->id]));
         $filterset->add_filter(new integer_filter('blockinstanceid', filter::JOINTYPE_DEFAULT, [(int)$blockinstance->id]));
         $filterset->add_filter(new integer_filter('groups', filter::JOINTYPE_DEFAULT, [(int)$this->groups[0]->id]));
@@ -225,7 +225,7 @@ final class overview_test extends \advanced_testcase {
 
     /**
      * Test that the overview table correctly sorts by progress.
-     * @covers \block_completion_progress\table\overview
+     * @covers \block_completion_progress_tgm\table\overview
      */
     public function test_overview_percentage_sort(): void {
         global $PAGE;
@@ -252,7 +252,7 @@ final class overview_test extends \advanced_testcase {
                 'activitiesincluded' => defaults::ACTIVITIESINCLUDED,
             ])),
         ];
-        $blockinstance = $generator->create_block('completion_progress', $blockinfo);
+        $blockinstance = $generator->create_block('completion_progress_tgm', $blockinfo);
 
         $page1 = $generator->create_module('page', [
             'course' => $this->course->id,
@@ -274,8 +274,8 @@ final class overview_test extends \advanced_testcase {
         // Set student 0 as having completed one page.
         $completion->update_state($page1cm, COMPLETION_COMPLETE, $this->students[0]->id);
 
-        $table = new \block_completion_progress\table\overview('block_completion_progress-overview-' . $blockinstance->id);
-        $filterset = new \block_completion_progress\table\overview_filterset();
+        $table = new \block_completion_progress_tgm\table\overview('block_completion_progress_tgm-overview-' . $blockinstance->id);
+        $filterset = new \block_completion_progress_tgm\table\overview_filterset();
         $filterset->add_filter(new integer_filter('courseid', filter::JOINTYPE_DEFAULT, [(int)$this->course->id]));
         $filterset->add_filter(new integer_filter('blockinstanceid', filter::JOINTYPE_DEFAULT, [(int)$blockinstance->id]));
         $table->set_filterset($filterset);

@@ -17,7 +17,7 @@
 /**
  * Completion Progress block English language translation
  *
- * @package    block_completion_progress
+ * @package    block_completion_progress_tgm
  * @copyright  2016 Michael de Raadt
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -27,14 +27,14 @@ $string['completed_colour_descr'] = 'HTML Colour code for elements that have bee
 $string['completed_colour_title'] = 'Completed colour';
 $string['completion_not_enabled'] = 'Completion tracking is not enabled on this site.';
 $string['completion_not_enabled_course'] = 'Completion tracking is not enabled in this course.';
-$string['completion_progress:addinstance'] = 'Add a new Completion Progress block';
-$string['completion_progress:myaddinstance'] = 'Add a Completion Progress block to My home page';
-$string['completion_progress:overview'] = 'View course overview of Completion Progress for all students';
-$string['completion_progress:showbar'] = 'Show the bar in the Completion Progress block';
+$string['completion_progress_tgm:addinstance'] = 'Add a new Completion Progress block';
+$string['completion_progress_tgm:myaddinstance'] = 'Add a Completion Progress block to My home page';
+$string['completion_progress_tgm:overview'] = 'View course overview of Completion Progress for all students';
+$string['completion_progress_tgm:showbar'] = 'Show the bar in the Completion Progress block';
 $string['computeprogress'] = 'Calculating progress percentages';
 $string['config_activitiesincluded'] = 'Activities included';
 $string['config_activitycompletion'] = 'All activities with completion set';
-$string['config_default_title'] = 'Completion Progress';
+$string['config_default_title'] = 'Completion Progress (TGM)';
 $string['config_group'] = 'Visible only to group or grouping';
 $string['config_header_monitored'] = 'Monitored';
 $string['config_icons'] = 'Use icons in bar';
@@ -88,13 +88,13 @@ $string['not_all_expected_set'] = 'Not all activities with completion have an "{
 $string['now_indicator'] = 'NOW';
 $string['overview'] = 'Overview of students';
 $string['overviewcachetime'] = 'Time to cache computed percentages';
-$string['pluginname'] = 'Completion Progress';
-$string['privacy:metadata:block_completion_progress:blockinstanceid'] = 'The Completion Progress block instance identifier the percentage relates to.';
-$string['privacy:metadata:block_completion_progress:courseid'] = 'The course the percentage relates to.';
-$string['privacy:metadata:block_completion_progress:percentage'] = 'The percentage of completion.';
-$string['privacy:metadata:block_completion_progress:tableexplanation'] = 'The Completion Progress block caches completion percentages for sorting of the Overview table.';
-$string['privacy:metadata:block_completion_progress:timemodified'] = 'The time at which the percentage was calculated.';
-$string['privacy:metadata:block_completion_progress:userid'] = 'The user identifier to whom the percentage relates.';
+$string['pluginname'] = 'Completion Progress (TGM)';
+$string['privacy:metadata:block_completion_progress_tgm:blockinstanceid'] = 'The Completion Progress block instance identifier the percentage relates to.';
+$string['privacy:metadata:block_completion_progress_tgm:courseid'] = 'The course the percentage relates to.';
+$string['privacy:metadata:block_completion_progress_tgm:percentage'] = 'The percentage of completion.';
+$string['privacy:metadata:block_completion_progress_tgm:tableexplanation'] = 'The Completion Progress block caches completion percentages for sorting of the Overview table.';
+$string['privacy:metadata:block_completion_progress_tgm:timemodified'] = 'The time at which the percentage was calculated.';
+$string['privacy:metadata:block_completion_progress_tgm:userid'] = 'The user identifier to whom the percentage relates.';
 $string['progress'] = 'Progress';
 $string['progressbar'] = 'Completion Progress';
 $string['progresscachetime'] = 'Calculated {$a} ago';
