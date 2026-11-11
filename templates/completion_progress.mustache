@@ -44,6 +44,9 @@
                 "notcompleted": false,
                 "futurenotcompleted": false,
                 "unavailable": false,
+                "hastype": true,
+                "typeicon": "fa fa-dumbbell",
+                "typelabel": "Üben",
                 "activitylink": "https://url/",
                 "activityicon": "https://url/",
                 "activityname": "Text",
@@ -58,6 +61,8 @@
                 "availabilityinfo": ""
             }
         ],
+        "haslegend": true,
+        "legend": [{"icon": "fa fa-dumbbell", "label": "Üben"}],
         "progresspercentage": "0%"
     }
 }}
@@ -84,9 +89,11 @@
                                 {{#completed}}completed{{/completed}}
                                 {{#notcompleted}}notCompleted{{/notcompleted}}
                                 {{#futurenotcompleted}}futureNotCompleted{{/futurenotcompleted}}
-                                {{#unavailable}}unavailable{{/unavailable}}"
+                                {{#unavailable}}unavailable{{/unavailable}}
+                                {{#hastype}}hasType{{/hastype}}"
                         data-inforef="{{instanceid}}-{{userid}}-{{activityid}}"
                         data-haslink="{{haslink}}">
+                        {{#typeicon}}<span class="typeIcon {{typeicon}}" aria-hidden="true"></span>{{/typeicon}}
                         {{#firstnow}}
                             <div class="nowDiv firstNow">
                             {{#pix}} left, block_completion_progress_tgm {{/pix}}{{#str}} now_indicator, block_completion_progress_tgm {{/str}}
@@ -106,6 +113,14 @@
                 </div>
             </div>
         </div>
+
+        {{#haslegend}}
+            <div class="taskTypeLegend">
+                {{#legend}}
+                    <span class="taskTypeLegendItem"><span class="typeLegendIcon {{icon}}" aria-hidden="true"></span>{{label}}</span>
+                {{/legend}}
+            </div>
+        {{/haslegend}}
 
         {{#progresspercentage}}
             <div class="progressPercentage">
@@ -133,6 +148,12 @@
                     {{{activityname}}}
                 {{/activitylink}}
                 <br>
+                {{#typelabel}}
+                    <div class="taskType">
+                        {{#typeicon}}<span class="{{typeicon}}" aria-hidden="true"></span>{{/typeicon}}
+                        {{#str}} tasktype, block_completion_progress_tgm {{/str}}: {{typelabel}}
+                    </div>
+                {{/typelabel}}
                 {{#infocomplete}}
                     {{#str}} completed, completion {{/str}}
                 {{/infocomplete}}

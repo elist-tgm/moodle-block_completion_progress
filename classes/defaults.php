@@ -98,4 +98,19 @@ abstract class defaults {
      * Default for skipping activities restricted to groups/groupings the user is not in.
      */
     const UNAVAILABLESKIPGROUPS = 1;
+
+    /**
+     * Default task type definitions: keyword | Font Awesome icon | label.
+     */
+    const TASKTYPES = "Erarbeiten | fa-book-open\nFestigen | fa-anchor\nÜben | fa-dumbbell\nABGABE | fa-file-arrow-up | Abgabe\nErweitert | fa-rocket";
+
+    /**
+     * Default display of task type icons in the bar.
+     */
+    const SHOWTASKTYPES = 1;
+
+    /**
+     * Default display of the task type legend below the bar.
+     */
+    const SHOWTASKTYPELEGEND = 1;
 }

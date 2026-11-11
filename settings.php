@@ -107,6 +107,18 @@ if ($ADMIN->fulltree) {
     $coloursetting->set_updatedcallback('block_completion_progress_tgm\helpers::increment_cache_value');
     $settings->add($coloursetting);
 
+    $settings->add(
+        new admin_setting_configtextarea(
+            'block_completion_progress_tgm/tasktypes',
+            get_string('tasktypes', 'block_completion_progress_tgm'),
+            get_string('tasktypes_desc', 'block_completion_progress_tgm'),
+            defaults::TASKTYPES,
+            PARAM_RAW,
+            60,
+            8
+        )
+    );
+
     $coloursetting = new admin_setting_configcolourpicker(
         'block_completion_progress_tgm/unavailable_colour',
         get_string('unavailable_colour_title', 'block_completion_progress_tgm'),

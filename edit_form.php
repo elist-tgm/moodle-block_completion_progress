@@ -118,6 +118,17 @@ class block_completion_progress_tgm_edit_form extends block_edit_form {
         $mform->hideIf('config_unavailableskipgroups', 'config_showunavailable', 'neq',
             completion_progress::UNAVAILABLE_GREY);
 
+        // Task types (detected from the first word of the activity name).
+        $mform->addElement('selectyesno', 'config_showtasktypes',
+            get_string('config_showtasktypes', 'block_completion_progress_tgm'));
+        $mform->setDefault('config_showtasktypes', defaults::SHOWTASKTYPES);
+        $mform->addHelpButton('config_showtasktypes', 'config_showtasktypes', 'block_completion_progress_tgm');
+
+        $mform->addElement('selectyesno', 'config_showtasktypelegend',
+            get_string('config_showtasktypelegend', 'block_completion_progress_tgm'));
+        $mform->setDefault('config_showtasktypelegend', defaults::SHOWTASKTYPELEGEND);
+        $mform->hideIf('config_showtasktypelegend', 'config_showtasktypes', 'eq', 0);
+
         // Allow icons to be turned on/off on the block.
         if (get_config('block_completion_progress_tgm', 'forceiconsinbar') !== "1") {
             $mform->addElement(

@@ -6,6 +6,7 @@ Install into `blocks/completion_progress_tgm`. Cache table: `block_completion_tg
 
 Extensions:
 - (Not yet) accessible activities are shown as grey cells (block setting).
+- Task types (Erarbeiten, Festigen, Üben, ABGABE, Erweitert, configurable) detected from the first word of the activity name and shown as icons in the bar, with legend.
 
 # Completion Progress block for Moodle
 

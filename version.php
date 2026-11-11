@@ -24,9 +24,9 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2026111100;
+$plugin->version   = 2026111101;
 $plugin->requires  = 2024100700;
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = 'Version for Moodle 4.5 onwards (+ unavailable grey cells)';
+$plugin->release   = 'Version for Moodle 4.5 onwards (+ unavailable grey cells, task types)';
 $plugin->component = 'block_completion_progress_tgm';
 $plugin->supported = [405, 503];

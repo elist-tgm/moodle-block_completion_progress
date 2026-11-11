@@ -553,6 +553,7 @@ class completion_progress implements \renderable, \templatable {
                     'context'    => $cm->context,
                     'icon'       => $cm->get_icon_url(),
                     'available'  => $cm->available,
+                    'tasktype'   => task_types::match($cm->get_formatted_name()),
                 ];
             }
         }
@@ -573,6 +574,9 @@ class completion_progress implements \renderable, \templatable {
         $this->visibleactivities = [];
         $modinfo = get_fast_modinfo($this->course, $this->user->id);
         $greymode = $this->is_unavailable_grey_mode();
+        $showtypes = !empty($config->showtasktypes ?? defaults::SHOWTASKTYPES);
+        $showlegend = $showtypes && !$simple && !empty($config->showtasktypelegend ?? defaults::SHOWTASKTYPELEGEND);
+        $legend = [];
         $skipgroups = !empty($this->blockconfig->unavailableskipgroups ?? defaults::UNAVAILABLESKIPGROUPS);
 
         // Keep only activities that are visible.
@@ -1120,6 +1124,12 @@ class completion_progress implements \renderable, \templatable {
                 $cell->infoincomplete = true;
                 $cell->infoicon = 'cross';
             }
+            if ($showtypes && !empty($activity->tasktype)) {
+                $cell->hastype = true;
+                $cell->typeicon = $activity->tasktype->icon;
+                $cell->typelabel = $activity->tasktype->label;
+                $legend[$activity->tasktype->order] = $activity->tasktype;
+            }
             if ($greymode && empty($activity->available)) {
                 $cell->infounavailable = true;
                 if (!empty($activity->availableinfo)) {
@@ -1133,6 +1143,12 @@ class completion_progress implements \renderable, \templatable {
             $data->cells[] = $cell;
 
             $counter++;
+        }
+
+        if ($showlegend && $legend) {
+            ksort($legend);
+            $data->haslegend = true;
+            $data->legend = array_map(fn($t) => ['icon' => $t->icon, 'label' => $t->label], array_values($legend));
         }
 
         return $data;

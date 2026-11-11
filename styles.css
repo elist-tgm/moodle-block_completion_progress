@@ -150,6 +150,41 @@
     background-image: url([[pix:block_completion_progress_tgm|cross]]);
 }
 
+/* Task type icons inside the cells. */
+.block_completion_progress_tgm .progressBarCell .typeIcon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    color: #fff;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+    pointer-events: none;
+}
+/* With status icons enabled, tick/cross move to the bottom right corner of typed cells. */
+.block_completion_progress_tgm .barWithIcons .progressBarCell.hasType::before {
+    position: absolute;
+    right: 1px;
+    bottom: 1px;
+    width: 45%;
+    height: 45%;
+    max-width: 0.7rem;
+    z-index: 1;
+}
+.block_completion_progress_tgm .taskTypeLegend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem 0.8rem;
+    font-size: x-small;
+    margin: 5px;
+}
+.block_completion_progress_tgm .taskTypeLegend .typeLegendIcon,
+.block_completion_progress_tgm .progressEventInfo .taskType .fa {
+    margin-right: 0.25rem;
+}
+
 .block_completion_progress_tgm .progressEventInfo,
 .block_completion_progress_tgm .progressPercentage {
     font-size: x-small;
