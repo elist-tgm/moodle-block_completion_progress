@@ -574,9 +574,6 @@ class completion_progress implements \renderable, \templatable {
         $this->visibleactivities = [];
         $modinfo = get_fast_modinfo($this->course, $this->user->id);
         $greymode = $this->is_unavailable_grey_mode();
-        $showtypes = !empty($config->showtasktypes ?? defaults::SHOWTASKTYPES);
-        $showlegend = $showtypes && !$simple && !empty($config->showtasktypelegend ?? defaults::SHOWTASKTYPELEGEND);
-        $legend = [];
         $skipgroups = !empty($this->blockconfig->unavailableskipgroups ?? defaults::UNAVAILABLESKIPGROUPS);
 
         // Keep only activities that are visible.
@@ -965,6 +962,9 @@ class completion_progress implements \renderable, \templatable {
         $simple = $this->is_simple_bar();
         $numactivities = count($activities);
         $greymode = $this->is_unavailable_grey_mode();
+        $showtypes = !empty($config->showtasktypes ?? defaults::SHOWTASKTYPES);
+        $showlegend = $showtypes && !$simple && !empty($config->showtasktypelegend ?? defaults::SHOWTASKTYPELEGEND);
+        $legend = [];
 
         // Get relevant block instance settings or use defaults.
         $useicons = get_config('block_completion_progress_tgm', 'forceiconsinbar') ?:
