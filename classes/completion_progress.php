@@ -696,7 +696,7 @@ class completion_progress implements \renderable, \templatable {
             $current->cells[] = $data->cells[$i];
         }
 
-        $showheader = !$simple && $iconpos !== self::TYPEICON_CELL;
+        $showheader = $iconpos !== self::TYPEICON_CELL;
         $cellsperrow = (int)($data->cellsperrow ?? 0);
         $data->grouped = true;
         $data->groups = [];
