@@ -150,6 +150,26 @@ class overview extends sql_table implements dynamic, renderable {
     }
 
     /**
+     * Set up the table and mark collapsed columns.
+     *
+     * Core sets width:10px only on the data cells of a collapsed column, not on its
+     * header. With table-layout: fixed the header row defines the column widths, so the
+     * collapsed column kept its share of the width and the space stayed empty.
+     * A CSS class on header and cells lets styles.css shrink the column.
+     *
+     * @return void|false
+     */
+    public function setup() {
+        $result = parent::setup();
+        foreach (array_keys($this->columns) as $column) {
+            if (($this->column_style[$column]['width'] ?? null) === '10px') {
+                $this->column_class[$column] = ($this->column_class[$column] ?? '') . ' collapsedcolumn';
+            }
+        }
+        return $result;
+    }
+
+    /**
      * Query the db. Store results in the table object for use by build_table.
      *
      * @param int $pagesize size of page for paginated displayed table.

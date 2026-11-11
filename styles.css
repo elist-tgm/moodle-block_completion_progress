@@ -223,6 +223,14 @@
     width: 6rem;
     text-align: center;
 }
+#page-blocks-completion_progress_tgm-overview #overview th.collapsedcolumn,
+#page-blocks-completion_progress_tgm-overview #overview td.collapsedcolumn {
+    width: 2.5rem;
+    min-width: 0;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    overflow: hidden;
+}
 #page-blocks-completion_progress_tgm-overview .bulkactions {
     display: none;
 }
