@@ -45,7 +45,7 @@ class block_completion_progress_tgm_edit_form extends block_edit_form {
     protected function specific_definition($mform) {
         global $COURSE, $OUTPUT;
         $progress = (new completion_progress($COURSE))->for_block_instance($this->block->instance, false);
-        $activities = $progress->get_activities(completion_progress_tgm::ORDERBY_COURSE);
+        $activities = $progress->get_activities(completion_progress::ORDERBY_COURSE);
 
         // The My home version is not configurable.
         if (helpers::on_site_page()) {
@@ -58,12 +58,12 @@ class block_completion_progress_tgm_edit_form extends block_edit_form {
         // Control order of items in Progress Bar.
         $expectedbystring = get_string('completionexpected', 'completion');
         $options = [
-            completion_progress_tgm::ORDERBY_TIME => get_string(
+            completion_progress::ORDERBY_TIME => get_string(
                 'config_orderby_due_time',
                 'block_completion_progress_tgm',
                 $expectedbystring
             ),
-            completion_progress_tgm::ORDERBY_COURSE => get_string(
+            completion_progress::ORDERBY_COURSE => get_string(
                 'config_orderby_course_order',
                 'block_completion_progress_tgm'
             ),
@@ -101,9 +101,9 @@ class block_completion_progress_tgm_edit_form extends block_edit_form {
 
         // Control how (not yet) accessible activities are presented.
         $options = [
-            \block_completion_progress_tgm\completion_progress_tgm::UNAVAILABLE_GREY =>
+            completion_progress::UNAVAILABLE_GREY =>
                 get_string('config_unavailable_grey', 'block_completion_progress_tgm'),
-            \block_completion_progress_tgm\completion_progress_tgm::UNAVAILABLE_HIDE =>
+            completion_progress::UNAVAILABLE_HIDE =>
                 get_string('config_unavailable_hide', 'block_completion_progress_tgm'),
         ];
         $mform->addElement('select', 'config_showunavailable',
@@ -116,7 +116,7 @@ class block_completion_progress_tgm_edit_form extends block_edit_form {
         $mform->setDefault('config_unavailableskipgroups', defaults::UNAVAILABLESKIPGROUPS);
         $mform->addHelpButton('config_unavailableskipgroups', 'config_unavailableskipgroups', 'block_completion_progress_tgm');
         $mform->hideIf('config_unavailableskipgroups', 'config_showunavailable', 'neq',
-            \block_completion_progress_tgm\completion_progress_tgm::UNAVAILABLE_GREY);
+            completion_progress::UNAVAILABLE_GREY);
 
         // Allow icons to be turned on/off on the block.
         if (get_config('block_completion_progress_tgm', 'forceiconsinbar') !== "1") {
