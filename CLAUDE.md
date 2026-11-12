@@ -17,6 +17,8 @@ Sprache im Gespräch: Deutsch. Code, Kommentare, Commit-Messages und englische S
 
 1. **Graue Felder** für (noch) nicht erreichbare Aktivitäten
    (`config_showunavailable`, `config_unavailableskipgroups`, Farbe `unavailable_colour`).
+   Von Lehrenden verborgene Aktivitäten/Abschnitte („Für Teilnehmer/innen verborgen“) sind **nie** im Balken,
+   auch nicht im eigenen Balken von Lehrenden (dient zum Verstecken unfertiger Aufgaben).
 2. **Aufgabentypen**: erstes Wort des Aktivitätsnamens (Erarbeiten, Festigen, Üben, ABGABE, Erweitert;
    Admin-Einstellung `tasktypes`, Format `Schlüsselwort | Icon | Bezeichnung`) → Font-Awesome-Icon im Feld,
    Legende, Info-Popup. Logik in `classes/task_types.php`.

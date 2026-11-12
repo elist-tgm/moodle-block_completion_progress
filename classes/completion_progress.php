@@ -621,6 +621,13 @@ class completion_progress implements \renderable, \templatable {
             $section = $cm->get_section_info();
             $activity->availableinfo = '';
 
+            // Activities and sections hidden by the teacher ("Hide from students") are never part of
+            // the bar, not even for users who can view hidden activities (teachers). Teachers use
+            // hiding for activities that are not ready yet; the bar should show what students see.
+            if (!$cm->visible || !$section->visible) {
+                continue;
+            }
+
             if (!$section->uservisible) {
                 // Section hidden from the user. Keep it only if it is restricted (not hidden by the teacher).
                 if (!$greymode || !$section->visible || $section->available || !$cm->visible) {
