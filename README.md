@@ -10,6 +10,7 @@ Extensions:
 - Task types (Erarbeiten, Festigen, Üben, ABGABE, Erweitert, configurable) detected from the first word of the activity name and shown as icons in the bar, with legend.
 - Ordering option 'Grouped by task type' with optional group headers.
 - Overview: collapsed columns release their width.
+- Activities hidden from students are not shown in the bar; block setting to show them to teachers.
 
 ## AI-assisted development
 

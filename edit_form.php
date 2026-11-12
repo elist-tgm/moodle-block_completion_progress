@@ -122,6 +122,12 @@ class block_completion_progress_tgm_edit_form extends block_edit_form {
         $mform->hideIf('config_unavailableskipgroups', 'config_showunavailable', 'neq',
             completion_progress::UNAVAILABLE_GREY);
 
+        // Hidden activities for users who can view them (teachers).
+        $mform->addElement('selectyesno', 'config_showhiddentoprivileged',
+            get_string('config_showhiddentoprivileged', 'block_completion_progress_tgm'));
+        $mform->setDefault('config_showhiddentoprivileged', defaults::SHOWHIDDENTOPRIVILEGED);
+        $mform->addHelpButton('config_showhiddentoprivileged', 'config_showhiddentoprivileged', 'block_completion_progress_tgm');
+
         // Task types (detected from the first word of the activity name).
         $mform->addElement('selectyesno', 'config_showtasktypes',
             get_string('config_showtasktypes', 'block_completion_progress_tgm'));

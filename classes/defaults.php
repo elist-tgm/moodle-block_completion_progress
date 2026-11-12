@@ -100,6 +100,11 @@ abstract class defaults {
     const UNAVAILABLESKIPGROUPS = 1;
 
     /**
+     * Default for showing hidden activities to users who can view them (teachers).
+     */
+    const SHOWHIDDENTOPRIVILEGED = 0;
+
+    /**
      * Default task type definitions: keyword | Font Awesome icon | label.
      */
     const TASKTYPES = "Erarbeiten | fa-book-open\nFestigen | fa-anchor\nÜben | fa-dumbbell\nABGABE | fa-file-arrow-up | Abgabe\nErweitert | fa-rocket";

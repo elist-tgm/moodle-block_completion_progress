@@ -614,6 +614,7 @@ class completion_progress implements \renderable, \templatable {
         $modinfo = get_fast_modinfo($this->course, $this->user->id);
         $greymode = $this->is_unavailable_grey_mode();
         $skipgroups = !empty($this->blockconfig->unavailableskipgroups ?? defaults::UNAVAILABLESKIPGROUPS);
+        $showhidden = !empty($this->blockconfig->showhiddentoprivileged ?? defaults::SHOWHIDDENTOPRIVILEGED);
 
         // Keep only activities that are visible.
         foreach ($this->activities as $key => $activity) {
@@ -621,11 +622,13 @@ class completion_progress implements \renderable, \templatable {
             $section = $cm->get_section_info();
             $activity->availableinfo = '';
 
-            // Activities and sections hidden by the teacher ("Hide from students") are never part of
-            // the bar, not even for users who can view hidden activities (teachers). Teachers use
-            // hiding for activities that are not ready yet; the bar should show what students see.
+            // Activities and sections hidden by the teacher ("Hide from students") are not part of
+            // the bar. Users who can view hidden activities (teachers) only see them if the block
+            // setting 'showhiddentoprivileged' is enabled. Students never see them.
             if (!$cm->visible || !$section->visible) {
-                continue;
+                if (!$showhidden || !$cm->uservisible) {
+                    continue;
+                }
             }
 
             if (!$section->uservisible) {
