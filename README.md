@@ -2,13 +2,26 @@
 
 Fork of [block_completion_progress](https://github.com/jonof/moodle-block_completion_progress),
 renamed to `block_completion_progress_tgm` so it can be installed alongside the original.
-Install into `blocks/completion_progress_tgm`. Cache table: `block_completion_tgm`.
+Install into `blocks/completion_progress_tgm` (Moodle 5.1+: `public/blocks/completion_progress_tgm`).
+Cache table: `block_completion_tgm`.
 
 Extensions:
 - (Not yet) accessible activities are shown as grey cells (block setting).
 - Task types (Erarbeiten, Festigen, Üben, ABGABE, Erweitert, configurable) detected from the first word of the activity name and shown as icons in the bar, with legend.
 - Ordering option 'Grouped by task type' with optional group headers.
 - Overview: collapsed columns release their width.
+
+## AI-assisted development
+
+The extensions of this fork were developed with the help of an AI coding assistant
+(Claude, Anthropic). All changes were reviewed and tested by the maintainer before release.
+Commits created with AI assistance carry an `Assisted-by:` trailer, following the convention of the
+Linux kernel documentation (*AI Coding Assistants*). List them with:
+
+    git log --format='%h %s %(trailers:key=Assisted-by,valueonly)'
+
+Commits before this convention was introduced carry a `Co-Authored-By: Claude …` trailer instead.
+Notes for AI assistants working on this repository are in `CLAUDE.md`.
 
 # Completion Progress block for Moodle
 
