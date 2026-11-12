@@ -20,6 +20,7 @@
  * @package    block_completion_progress_tgm
  * @copyright  2016 Michael de Raadt
  * @copyright  2021 Jonathon Fowler <fowlerj@usq.edu.au>
+ * @copyright  2026 Erhard List <elist@tgm.ac.at>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -36,6 +37,7 @@ use coding_exception;
  * @package    block_completion_progress_tgm
  * @copyright  2016 Michael de Raadt
  * @copyright  2021 Jonathon Fowler <fowlerj@usq.edu.au>
+ * @copyright  2026 Erhard List <elist@tgm.ac.at>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class completion_progress implements \renderable, \templatable {

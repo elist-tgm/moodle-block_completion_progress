@@ -25,6 +25,7 @@ namespace block_completion_progress_tgm;
  * e.g. "Üben | fa-dumbbell | Üben".
  *
  * @package    block_completion_progress_tgm
+ * @copyright  2026 Erhard List <elist@tgm.ac.at>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class task_types {

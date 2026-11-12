@@ -21,6 +21,8 @@
  * extended by the strings of the TGM extensions.
  *
  * @package    block_completion_progress_tgm
+ * @copyright  1999 Martin Dougiamas and contributors (AMOS translation of block_completion_progress)
+ * @copyright  2026 Erhard List <elist@tgm.ac.at>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
